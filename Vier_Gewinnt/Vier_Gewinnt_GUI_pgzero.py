@@ -5,18 +5,6 @@ Vier_Gewinnt = viergewinntklasse()
 HEIGHT = 4000
 WIDTH = 5000
 
-#SpielerGelb = Actor("spieler_gelb")
-#SpielerGruen = Actor("spieler_gruen")
-#SpielerWeiß = Actor("spieler_weiß")
-
-#SpielerGelb.x = 150
-#SpielerGelb.y = 150
-
-#SpielerGruen.x = 215
-#SpielerGruen.y = 150
-
-#SpielerWeiß.x = 150
-#SpielerWeiß.y = 215
 
 xposition = 30
 yposition = 30
@@ -82,7 +70,6 @@ def on_mouse_down(pos):
         draw()
 
 
-bobo = "Hallo"
     
 pgzrun.go()
 
