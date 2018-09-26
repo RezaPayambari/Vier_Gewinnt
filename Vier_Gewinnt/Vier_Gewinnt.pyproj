@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b6f0829f-5f3e-4745-80dd-9d61096a8dc8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Vier_Gewinnt.py</StartupFile>
+    <StartupFile>Vier_Gewinnt_GUI_pgzero.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Vier_Gewinnt.py" />
+    <Compile Include="Vier_Gewinnt_GUI_pgzero.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Vier_Gewinnt_GUI_tkinter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Vier_Gewinnt_Klasse.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
