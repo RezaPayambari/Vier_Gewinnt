@@ -8,7 +8,10 @@ class viergewinntklasse:
         self.__Spielzug = ""
         self.__SpielstandGruen = 0
         self.__SpielstandGelb = 0
+        self.__Spielbeendet = False
 
+    def getSpielbeendet(self):
+        return self.__Spielbeendet
 
     def getSpielstandGruen(self):
         return self.__SpielstandGruen
@@ -36,6 +39,9 @@ class viergewinntklasse:
         self.waagerechteÜberprüfung()
         if self.__Ergebnis == "" and self.__RestSpielzüge == 1:
             self.__Ergebnis = "un"
+            self.__Spielbeendet = True
+        elif self.__Ergebnis !="":
+            self.__Spielbeendet = True
 
 
     def diagonaleÜberprüfung(self):
