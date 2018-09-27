@@ -98,7 +98,7 @@ def on_mouse_down(pos):
             labelsetzen("Spieler Grün hat gewonnen.",10,500)
         elif Vier_Gewinnt.getErgebnis() == "un":
             labelsetzen("Unentschieden",10,500)
-
+ 
 
 
     
