@@ -33,13 +33,7 @@ def draw():
     for Label in LabelListe:
         screen.draw.text(Label[0], (Label[1], Label[2]), color="white")
 
-
-
-
-
-
-
-    
+# Methode fügt Daten (Text,xPosition,yPosition) für ein Label als Array in ein Array
 def labelsetzen(text,xposition,yposition):
     Label = [text,xposition,yposition]
     LabelListe.append(Label)
