@@ -3,15 +3,8 @@ from Vier_Gewinnt_Klasse import viergewinntklasse
 
 class GUI:
     def __init__(self, title="Blank Window"):
-        self.root = tkinter.Tk()
-        self.root.title(title)
-        # Spieler figuren
-        self.spielergruen = tkinter.PhotoImage (file="Spieler_Gruen.gif")
-        self.spielergelb = tkinter.PhotoImage (file="Spieler_Gelb.gif")
-        self.Spielerweiß = tkinter.PhotoImage (file="Spieler_Weiß.gif")
-        self.Oberfläche_erzeugen()
-        self.__viergewinnt = viergewinntklasse()
-        self.__Array = [["w" for x in range(7)] for y in range(6)]
+
+
     
         
     def Oberfläche_erzeugen(self):
