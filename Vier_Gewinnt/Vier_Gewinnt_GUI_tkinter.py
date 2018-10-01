@@ -71,10 +71,11 @@ class GUI:
 
         
     def zugausführen(self,Spalte):  
-        self.__viergewinnt.setSpielzug(Spalte)
-        self.__viergewinnt.ausführen()
-        self.__Array = self.__viergewinnt.getArray()
-        self.überprüfung()
+        if self.__viergewinnt.getSpielbeendet() == False:
+            self.__viergewinnt.setSpielzug(Spalte)
+            self.__viergewinnt.ausführen()
+            self.__Array = self.__viergewinnt.getArray()
+            self.überprüfung()
 
         for i in range(1,8):
             for ii in range(2,8):
