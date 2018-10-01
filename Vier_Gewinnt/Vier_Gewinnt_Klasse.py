@@ -30,21 +30,31 @@ class viergewinntklasse:
             self.__Spielzug = spalte
 
     def ausführen(self):
-        self.Spielzugübertragung()
-        self.Spielergebnis()
+        self.__Spielzugübertragung()
+        self.__Spielergebnis()
 
-    def Spielergebnis(self):
-        self.diagonaleÜberprüfung()
-        self.senkrechteÜberprüfung()
-        self.waagerechteÜberprüfung()
+    def neuesMatch(self):
+        self.__Array = [["w" for x in range(7)] for y in range(6)]
+        self.__RestSpielzüge = 43
+        self.__Ergebnis = ""
+        self.__Spielzug = ""
+        self.__Spielbeendet = False
+
+    def __Spielergebnis(self):
+        self.__diagonaleÜberprüfung()
+        self.__senkrechteÜberprüfung()
+        self.__waagerechteÜberprüfung()
         if self.__Ergebnis == "" and self.__RestSpielzüge == 1:
             self.__Ergebnis = "un"
             self.__Spielbeendet = True
         elif self.__Ergebnis !="":
             self.__Spielbeendet = True
+        if self.__Ergebnis == "ge":
+            self.__SpielstandGelb = self.__SpielstandGelb +1
+        elif self.__Ergebnis =="gr":
+            self.__SpielstandGruen = self.__SpielstandGruen +1
 
-
-    def diagonaleÜberprüfung(self):
+    def __diagonaleÜberprüfung(self):
         # linksoben nach rechts unten
         for i in range(0,4):
             x=i
@@ -156,7 +166,7 @@ class viergewinntklasse:
 
 
 
-    def senkrechteÜberprüfung(self):
+    def __senkrechteÜberprüfung(self):
 
         for x in range(7):
             zählerSpielergelb = 0
@@ -179,7 +189,7 @@ class viergewinntklasse:
                     zählerSpielergelb = 0
 
     
-    def waagerechteÜberprüfung(self):
+    def __waagerechteÜberprüfung(self):
 
         for y in range(6):
             zählerSpielergelb = 0
@@ -201,7 +211,7 @@ class viergewinntklasse:
                     zählerSpielergruen = 0
                     zählerSpielergelb = 0
 
-    def Spielzugübertragung(self):
+    def __Spielzugübertragung(self):
         # Spieler Gelb
         y = 0
         while self.__Array[y][int(self.__Spielzug)] == "w":
