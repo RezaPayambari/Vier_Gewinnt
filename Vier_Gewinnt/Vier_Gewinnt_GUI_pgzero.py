@@ -9,7 +9,7 @@ def draw():
 
 
     # Hintergrund
-    screen.fill("green")
+    screen.fill("grey")
     # Spielsteine zeichnen (Grün, Gelb, Weiß)
     for Spieler in Spielerliste:
         Spieler.draw()
