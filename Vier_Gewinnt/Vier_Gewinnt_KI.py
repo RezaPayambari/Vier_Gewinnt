@@ -26,8 +26,14 @@ class KI:
                     break
             if zähler == 3:
                 self.__Spielzug = x
+                break
 
         ##### Waagerecht
+        """ 
+        funktioniert noch nicht
+        x position muss besser ermittlet werden
+        Idee: Wenn auf gelb splate minus eins feld dann überprüfen, wenn besetzt spalte plus 4
+        """
         zähler = 0
         position = None
         for y in range(6):
@@ -218,7 +224,7 @@ class KI:
                                 break
 
                         if zähler >= 4 and eigenerSpielerenthalten == True:
-                            Self.__Spielzug = position
+                            self.__Spielzug = position
 
 
 

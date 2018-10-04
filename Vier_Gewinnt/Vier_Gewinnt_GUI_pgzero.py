@@ -72,7 +72,7 @@ def on_mouse_down(pos):
 
 
         # ===============================================================================================================================================================================================================================
-        if Vier_Gewinnt.getRestSpielzüge() %2 == 0:
+        if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False:
             vier_Gewinnt_KI.setSpielfeld(Array)
             Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI.Spielzuggenerieren())
             Vier_Gewinnt.ausführen()
