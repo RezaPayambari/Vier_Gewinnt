@@ -24,6 +24,9 @@ class viergewinntklasse:
 
     def getErgebnis(self):
         return self.__Ergebnis
+    
+    def getRestSpielzüge(self):
+        return self.__RestSpielzüge
 
     def setSpielzug(self,spalte):
         if spalte < 7 and spalte >= 0:

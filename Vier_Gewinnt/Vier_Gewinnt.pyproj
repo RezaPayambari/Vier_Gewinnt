@@ -28,6 +28,9 @@
     <Compile Include="Vier_Gewinnt_GUI_tkinter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Vier_Gewinnt_KI.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Vier_Gewinnt_Klasse.py">
       <SubType>Code</SubType>
     </Compile>

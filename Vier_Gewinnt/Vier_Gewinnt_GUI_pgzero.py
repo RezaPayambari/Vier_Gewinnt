@@ -1,6 +1,7 @@
 import pgzrun
 from Vier_Gewinnt_Klasse import viergewinntklasse
 import time
+from Vier_Gewinnt_KI import KI
 
 
 def draw():
@@ -65,8 +66,22 @@ def on_mouse_down(pos):
     if ymouse <= 4 or ymouse >= 395:
         spalte = 100
     if spalte != 100 and Vier_Gewinnt.getSpielbeendet() == False:
+
         Vier_Gewinnt.setSpielzug(spalte)
         Vier_Gewinnt.ausführen()
+
+
+        # ===============================================================================================================================================================================================================================
+        if Vier_Gewinnt.getRestSpielzüge() %2 == 0:
+            vier_Gewinnt_KI.setSpielfeld(Array)
+            Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI.Spielzuggenerieren())
+            Vier_Gewinnt.ausführen()
+        # ================================================================================================================================================================================================================================
+
+
+
+
+
         # Spielfeld erstellen
         __Spielfeldgenerieren()
     # Label setzen wenn einer gewonnen hat
@@ -144,6 +159,7 @@ class labelklasse:
 
 
 Vier_Gewinnt = viergewinntklasse()
+vier_Gewinnt_KI = KI("gr","ge")
 HEIGHT = 600
 WIDTH = 600
 
