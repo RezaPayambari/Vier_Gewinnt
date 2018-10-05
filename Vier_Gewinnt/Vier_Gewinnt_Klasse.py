@@ -45,11 +45,13 @@ class viergewinntklasse:
 
     def __Spielergebnis(self):
         self.__diagonaleÜberprüfung()
-        self.__senkrechteÜberprüfung()
-        self.__waagerechteÜberprüfung()
-        if self.__Ergebnis == "" and self.__RestSpielzüge == 1:
-            self.__Ergebnis = "un"
-            self.__Spielbeendet = True
+        if self.__Ergebnis == "":
+            self.__senkrechteÜberprüfung()
+            if self.__Ergebnis == "":
+                self.__waagerechteÜberprüfung()
+                if self.__Ergebnis == "" and self.__RestSpielzüge == 1:
+                    self.__Ergebnis = "un"
+                    self.__Spielbeendet = True
         elif self.__Ergebnis !="":
             self.__Spielbeendet = True
         if self.__Ergebnis == "ge":
