@@ -21,6 +21,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="test_KI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_VierGewinnt_Klasse.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Vier_Gewinnt.py" />
     <Compile Include="Vier_Gewinnt_GUI_pgzero.py">
       <SubType>Code</SubType>

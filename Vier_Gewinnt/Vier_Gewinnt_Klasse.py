@@ -1,4 +1,4 @@
-
+import copy
 
 class viergewinntklasse:
     def __init__(self):
@@ -52,17 +52,17 @@ class viergewinntklasse:
                 if self.__Ergebnis == "" and self.__RestSpielzüge == 1:
                     self.__Ergebnis = "un"
                     self.__Spielbeendet = True
-        elif self.__Ergebnis !="":
-            self.__Spielbeendet = True
         if self.__Ergebnis == "ge":
             self.__SpielstandGelb = self.__SpielstandGelb +1
+            self.__Spielbeendet = True
         elif self.__Ergebnis =="gr":
             self.__SpielstandGruen = self.__SpielstandGruen +1
+            self.__Spielbeendet = True
 
     def __diagonaleÜberprüfung(self):
         # linksoben nach rechts unten
         for i in range(0,4):
-            x=i
+            x= copy.deepcopy(i)
             zählerSpielergruen = 0
             zählerSpielergelb = 0
             for y in range (6):
@@ -83,6 +83,8 @@ class viergewinntklasse:
                     zählerSpielergelb = 0
                 if x < 6:
                     x = x+1
+                else:
+                    break
 
             
 
@@ -110,6 +112,8 @@ class viergewinntklasse:
                     zählerSpielergelb = 0
                 if y < 5:
                     y = y+1
+                else:
+                    break
 
             
         
@@ -138,6 +142,8 @@ class viergewinntklasse:
                 y=y-1
                 if x < 6:
                     x = x+1
+                else:
+                    break
 
             
                 
@@ -165,6 +171,8 @@ class viergewinntklasse:
                     zählerSpielergelb = 0
                 if y >=0:
                     y = y-1
+                else:
+                    break
 
 
        

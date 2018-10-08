@@ -16,17 +16,18 @@ class KI:
 
         # Überprüfung ob man selber 3 Steine in einer Reihe hat 
     def ÜberprüfungZugzumGewinn(self,Spieler,Gegner):
-     #   self.ÜberprüfungZugzumGewinn_senkrecht(Spieler,Gegner)
-      #  if self.__Spielzug =="":
-       #     self.ÜberprüfungZugzumGewinn_waagerecht(Spieler,Gegner)
-        #    if self.__Spielzug =="":
-        self.ÜberprüfungZugzumGewinn_diagonal(Spieler,Gegner)
+        self.ÜberprüfungZugzumGewinn_senkrecht(Spieler,Gegner)
+        if self.__Spielzug =="":
+            self.ÜberprüfungZugzumGewinn_waagerecht(Spieler,Gegner)
+            if self.__Spielzug =="":
+                self.ÜberprüfungZugzumGewinn_diagonal(Spieler,Gegner)
 
 
     def ÜberprüfungZugzumGewinn_senkrecht(self,Spieler,Gegner):
         #### Senkrecht
-        zähler = 0
+        
         for x in range(7):
+            zähler = 0
             for y in range(6):
                 if self.__Spielfeld[y][x] == Spieler:
                     zähler = zähler + 1
@@ -55,6 +56,7 @@ class KI:
                     zähler = zähler + 1
                 elif self.__Spielfeld[y][x] == Gegner:
                     zähler = 0
+                    leer = False
                 elif self.__Spielfeld[y][x] == "w":
                     if leer == False:
                         zähler = zähler+1
@@ -62,6 +64,7 @@ class KI:
                         leer = True
                     elif zähler >1:
                         position = x
+                        #zähler = zähler + 1
 
                     else:
                         zähler = 1
@@ -72,21 +75,24 @@ class KI:
 
         #### Diagonal
     def ÜberprüfungZugzumGewinn_diagonal(self,Spieler,Gegner):
-        for x in range(7):
+        for x1 in range(7):
+            
             zähler = 0
             if self.__Spielzug != "":
                 break
-            for y in range(6):
-                if self.__Spielfeld[y][x] == "w":
+            for y1 in range(6):
+                y = copy.deepcopy(y1)
+                x = copy.deepcopy(x1)
+                if self.__Spielfeld[y1][x1] == "w":
              #       y = y -1
-                    Ursprungx = copy.deepcopy(x)
-                    Ursprungy = copy.deepcopy(y)
-                    position = x
+                    Ursprungx = copy.deepcopy(x1)
+                    Ursprungy = copy.deepcopy(y1)
+                    position = copy.deepcopy(x1)
                     schleife = True
                     while schleife: 
                         if y < 5 and x > 0:
                             y = y+1
-                            x=x-1
+                            x = x-1
                             if self.__Spielfeld[y][x] == Spieler:
                                 zähler = zähler + 1
                             else:
@@ -286,7 +292,7 @@ class KI:
         else:
             while True:
                 self.__Spielzug = randint(0,6)
-                #self.__Spielzug = 6
+                #self.__Spielzug = 2
                 # Überprüfung
                 #if self.__Spielfeld[0][self.__Spielzug] =="w":
            #         self.__VierGewinntKlasse._viergewinntklasse__Array = self.__Spielfeld
