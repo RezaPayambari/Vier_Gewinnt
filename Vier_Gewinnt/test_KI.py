@@ -2,6 +2,8 @@ import unittest
 from Vier_Gewinnt_KI import KI
 
 class Test_test_KI(unittest.TestCase):
+    # erkennung von Diagonalen, wenn drei Steine gegeben sind
+    #==========================================================================================================
     def test_A(self):
         Viergewinnt_ki = KI("gr","ge")
         Array = [["w" for x in range(7)] for y in range(6)]
@@ -18,7 +20,7 @@ class Test_test_KI(unittest.TestCase):
         Array[1][2] = "gr"
         Array[2][3] = "gr"
         Array[3][0] = "gr"
-        Array[3][4] = "gr"
+        #Array[3][4] = "gr"
         Array[4][1] = "gr"
         Array[5][2] = "gr"
         #====
@@ -29,7 +31,12 @@ class Test_test_KI(unittest.TestCase):
         Viergewinnt_ki.setSpielfeld(Array)
         Output = Viergewinnt_ki.Spielzuggenerieren()
         self.assertEqual(4,Output,"Diagonale nach rechts unten funktionier nicht")
+    #=========================================================================================================================================
 
+
+
+    # Erkennung von Waagerechten wenn drei Steine gegeben sind
+    #=========================================================================================================================================
     def test_B(self):
         Viergewinnt_ki = KI("gr","ge")
         Array = [["w" for x in range(7)] for y in range(6)]
@@ -74,7 +81,10 @@ class Test_test_KI(unittest.TestCase):
         Viergewinnt_ki.setSpielfeld(Array)
         Output = Viergewinnt_ki.Spielzuggenerieren()
         self.assertEqual(6,Output,"waagerechte funktioniert nicht")
+    #==============================================================================================================================
 
+    # Erkennung von senkrechten wenn drei Steine gegeben sind
+    #============================================================================================================================
     def test_F(self):
         Viergewinnt_ki = KI("gr","ge")
         Array = [["w" for x in range(7)] for y in range(6)]
@@ -95,8 +105,52 @@ class Test_test_KI(unittest.TestCase):
 
         Viergewinnt_ki.setSpielfeld(Array)
         Output = Viergewinnt_ki.Spielzuggenerieren()
-        self.assertEqual(2,Output,"waagerechte funktioniert nicht")
+        self.assertEqual(2,Output,"senkrechte funktioniert nicht")
 
+    #==============================================================================================================================
+
+    # Überprüfung ob KI spalten auslässt, damit sie nicht verliert
+    #============================================================================================================================
+    def test_G(self):
+        for i in range(100):
+            Viergewinnt_ki = KI("gr","ge")
+            Array = [["w" for x in range(7)] for y in range(6)]
+            Array[5][5] = "gr"
+            Array[5][4] = "gr"
+            Array[4][5] = "gr"
+            Array[4][2] = "gr"
+            Array[2][3] = "gr"
+
+
+            Array[5][2] = "ge"
+            Array[5][3] = "ge"
+            Array[4][4] = "ge"
+            Array[4][3] = "ge"
+            Array[3][2] = "ge"
+            Array[3][3] = "ge"
+            Array[3][4] = "ge"
+
+            Viergewinnt_ki.setSpielfeld(Array)
+            Output = Viergewinnt_ki.Spielzuggenerieren()
+            self.assertIsNot(5,Output,"waagerecht und Diagonal")
+            #print("Zug: "+str(Output))
+    
+    def test_H(self):
+        for i in range(100):
+            Viergewinnt_ki = KI("gr","ge")
+            Array = [["w" for x in range(7)] for y in range(6)]
+            Array[4][2] = "ge"
+            Array[4][3] = "ge"
+            Array[4][4] = "ge"
+            Array[5][2] = "gr"
+            Array[5][3] = "ge"
+            Array[5][4] = "gr"
+
+            Viergewinnt_ki.setSpielfeld(Array)
+            Output = Viergewinnt_ki.Spielzuggenerieren()
+            self.assertIsNot(1,Output,"waagerechte")
+            self.assertIsNot(5,Output,"waagerechte")
+            #print("Zug: "+str(Output))
 
 
 

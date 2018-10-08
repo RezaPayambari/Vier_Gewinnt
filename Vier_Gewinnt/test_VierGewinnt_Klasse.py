@@ -2,6 +2,7 @@ import unittest
 from Vier_Gewinnt_Klasse import viergewinntklasse
 
 class Test_test_VierGewinnt_Klasse(unittest.TestCase):
+    # Überprüfung des Spielergebnisses
     def test_A(self):
         viergewinnt = viergewinntklasse()
         Array = [["w" for x in range(7)] for y in range(6)]

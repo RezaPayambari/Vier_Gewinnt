@@ -1,9 +1,9 @@
 import copy
 
 class viergewinntklasse:
-    def __init__(self):
-        self.__Array = [["w" for x in range(7)] for y in range(6)]
-        self.__RestSpielzüge = 43
+    def __init__(self,Array = [["w" for x in range(7)] for y in range(6)],RestSpielzüge = 43):
+        self.__Array = Array
+        self.__RestSpielzüge = RestSpielzüge
         self.__Ergebnis = ""
         self.__Spielzug = ""
         self.__SpielstandGruen = 0

@@ -7,7 +7,7 @@ class KI:
         self.__eigeneSpielsteinfarbe = eigendeSpielsteinfarbe
         self.__fremdeSpielsteinfarbe = fremdeSpielsteinfarbe
         self.__Spielzug = ""
-        self.__VierGewinntKlasse = viergewinntklasse()
+        self.__VierGewinntKlasse = None
 
     def setSpielfeld(self,Spielfeld):
         self.__Spielfeld = copy.deepcopy(Spielfeld)
@@ -40,12 +40,13 @@ class KI:
         ##### Waagerecht
         """ 
         funktioniert noch nicht
-        x position muss besser ermittlet werden
+        x positionx muss besser ermittlet werden
         Idee: Wenn auf gelb splate minus eins feld dann überprüfen, wenn besetzt spalte plus 4
         """
     def ÜberprüfungZugzumGewinn_waagerecht(self,Spieler,Gegner):
         zähler = 0
-        position = None
+        positionx = None
+        psitiony = None
         for y in range(5,-1,-1):
             if self.__Spielzug != "":
                 break
@@ -60,18 +61,27 @@ class KI:
                 elif self.__Spielfeld[y][x] == "w":
                     if leer == False:
                         zähler = zähler+1
-                        position = x
+                        positionx = x
+                        positiony = y
                         leer = True
                     elif zähler >1:
-                        position = x
+                        positionx = x
+                        positiony = y
                         #zähler = zähler + 1
 
                     else:
                         zähler = 1
-                        position = x
+                        positionx = x
+                        positiony = y
                 if zähler == 4:
-                    self.__Spielzug = position
-                    break
+                    if self.SinnvollerZug(positionx,positiony) == True:
+                        self.__Spielzug = positionx
+                        break
+                    elif positionx + 4 <= 6 and self.__Spielfeld[positiony][positionx + 4] == "w":
+                        if self.SinnvollerZug(positionx + 4,positiony) == True:
+                            self.__Spielzug = positionx + 4
+                            break
+
 
         #### Diagonal
     def ÜberprüfungZugzumGewinn_diagonal(self,Spieler,Gegner):
@@ -87,7 +97,8 @@ class KI:
              #       y = y -1
                     Ursprungx = copy.deepcopy(x1)
                     Ursprungy = copy.deepcopy(y1)
-                    position = copy.deepcopy(x1)
+                    positionx = copy.deepcopy(x1)
+                    positiony = copy.deepcopy(y1)
                     schleife = True
                     while schleife: 
                         if y < 5 and x > 0:
@@ -114,8 +125,9 @@ class KI:
                         else:
                             break
                     if zähler >= 3:
-                        self.__Spielzug = position
-                        break
+                        if self.SinnvollerZug(positionx,positiony) == True:    
+                            self.__Spielzug = positionx
+                            break
 
                     else:
                         zähler = 0
@@ -147,8 +159,9 @@ class KI:
                                 break
 
                         if zähler >= 3:
-                            self.__Spielzug = position
-                            break
+                            if self.SinnvollerZug(positionx,positiony) == True:
+                                self.__Spielzug = positionx
+                                break
 
 
     #def ÜberprüfungZugschlaulegen(self,Spieler,Gegner):
@@ -169,7 +182,7 @@ class KI:
 
     #    ##### Waagerecht
     #    zähler = 0
-    #    position = None
+    #    positionx = None
     #    eigenerSpielerenthalten = False
     #    for y in range(6):
     #        leer = False
@@ -179,21 +192,21 @@ class KI:
     #                eigenerSpielerenthalten = True
     #            elif self.__Spielfeld[y][x] == "w":
     #                zähler = zähler + 1
-    #                position = x
+    #                positionx = x
     #            elif self.__Spielfeld[y][x] == Gegner:
     #                zähler = 0
     #            if zähler == 4 and eigenerSpielerenthalten == True:
-    #                self.__Spielzug = position
+    #                self.__Spielzug = positionx
 
     #    #### Diagonal
     #    eigenerSpielerenthalten = False
-    #    position = None
+    #    positionx = None
     #    for x in range(7):
     #        zähler = 0
     #        for y in range(6):
     #            if self.__Spielfeld[y][x] == Spieler or self.__Spielfeld[y][x] == Gegner:
     #                y = y -1
-    #                position = x
+    #                positionx = x
     #                schleife = True
     #                while schleife: 
     #                    if y < 5 and x > 0:
@@ -224,12 +237,12 @@ class KI:
     #                    else:
     #                        break
     #                if zähler >= 4 and eigenerSpielerenthalten == True:
-    #                    self._Spielzug = position
+    #                    self._Spielzug = positionx
 
     #                else:
     #                    zähler = 0
     #                    eigenerSpielerenthalten=False
-    #                    position = None
+    #                    positionx = None
     #                    schleife = True
     #                    while schleife: 
     #                        if y < 5 and x < 6:
@@ -260,7 +273,29 @@ class KI:
     #                            break
 
     #                    if zähler >= 4 and eigenerSpielerenthalten == True:
-    #                        self.__Spielzug = position
+    #                        self.__Spielzug = positionx
+
+    def SinnvollerZug(self, Zug, Ebene = 10000):
+        # überprüfung ob der Stein auch auf der richtigen Ebene landet
+        if Ebene != 10000 and Ebene < 5:
+            if self.__Spielfeld[int(Ebene)+1][Zug] == "w":
+                return False
+        
+        # um sicherzugehen das man sich mit dem eigenen zug kein Grab schaufelt
+        if self.__eigeneSpielsteinfarbe == "gr":
+            reststeine = 20
+        else:
+            reststeine = 19
+        spielfeld = copy.deepcopy(self.__Spielfeld)
+        self.__VierGewinntKlasse = viergewinntklasse(spielfeld,reststeine)
+        self.__VierGewinntKlasse.setSpielzug(Zug)
+        self.__VierGewinntKlasse.ausführen()
+        self.__VierGewinntKlasse.setSpielzug(Zug)
+        self.__VierGewinntKlasse.ausführen()
+        if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe:
+            return False
+        else: 
+            return True
 
 
 
@@ -272,33 +307,25 @@ class KI:
         if self.__Spielfeld == Array:
             self.__Spielzug = 3
             return self.__Spielzug
-        ## Überprüfung ob man selber gewinnen kann
-      #  self.ÜberprüfungZugzumGewinn(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
-       # if self.__Spielzug != "":
-       #     return self.__Spielzug
-      #  else:
-        ## Überprüfung ob Gegner gewinnen kann und Positionsermittlung um dies zuverhindern
+        # Überprüfung ob man selber gewinnen kann
+        self.ÜberprüfungZugzumGewinn(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
+        if self.__Spielzug != "":
+            return self.__Spielzug
+
+        # Überprüfung ob Gegner gewinnen kann und positionsermittlung um dies zuverhindern
         self.ÜberprüfungZugzumGewinn(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe)
         if self.__Spielzug != "":
             return self.__Spielzug
-    #    else:
-   #         self.ÜberprüfungZugschlaulegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe)
-    #        if self.__Spielzug != "":
-     #           self.__VierGewinntKlasse._viergewinntklasse__Array = self.__Spielfeld
-      #          self.__VierGewinntKlasse.setSpielzug(self.__Spielzug)
-       #         self.__VierGewinntKlasse.ausführen()
-        #        if self.__VierGewinntKlasse.getErgebnis() == "":
-         #           return self.__Spielzug
-        else:
-            while True:
-                self.__Spielzug = randint(0,6)
-                #self.__Spielzug = 2
-                # Überprüfung
-                #if self.__Spielfeld[0][self.__Spielzug] =="w":
-           #         self.__VierGewinntKlasse._viergewinntklasse__Array = self.__Spielfeld
-            #        self.__VierGewinntKlasse.setSpielzug(self.__Spielzug)
-             #       self.__VierGewinntKlasse.ausführen()
-              #      if self.__VierGewinntKlasse.getErgebnis() == "":
+
+        x=0
+        while True:
+            x=x + 1
+            self.__Spielzug = randint(0,6)
+            #self.__Spielzug = 2
+            # Überprüfung
+            #   if self.__Spielzug ==0:
+            #       print("Hallo")
+            if self.SinnvollerZug(self.__Spielzug) == True or x == 1000:
                 return self.__Spielzug # falsche Einrückung
 
 
