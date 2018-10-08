@@ -2,6 +2,12 @@ import unittest
 from Vier_Gewinnt_KI import KI
 
 class Test_test_KI(unittest.TestCase):
+    ###################################################
+    #                                                 #
+    #  Gewinnen des Gegners soll verhindert werden    #
+    #                                                 #
+    ###################################################
+
     # erkennung von Diagonalen, wenn drei Steine gegeben sind
     #==========================================================================================================
     def test_A(self):
