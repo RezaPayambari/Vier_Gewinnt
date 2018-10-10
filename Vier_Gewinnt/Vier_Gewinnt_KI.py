@@ -15,82 +15,97 @@ class KI:
 
 
         # Überprüfung ob man selber 3 Steine in einer Reihe hat 
-    def ÜberprüfungZugzumGewinn(self,Spieler,Gegner):
-        self.ÜberprüfungZugzumGewinn_senkrecht(Spieler,Gegner)
+    def __ÜberprüfungobdreiSteineineinerReiheliegen(self,Spieler,Gegner):
+        self.__ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(Spieler,Gegner, 61)
         if self.__Spielzug =="":
-            self.ÜberprüfungZugzumGewinn_waagerecht(Spieler,Gegner)
+            self.__ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(Spieler,Gegner,61)
             if self.__Spielzug =="":
-                self.ÜberprüfungZugzumGewinn_diagonal(Spieler,Gegner)
+                self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,3)
+
+    # Überprüfung ob zwei Steine in einer Reihe liegen und dann daneben legen, um Zwickmühlen zuverhindern
+    def __ÜberprüfungobzweiSteineineinerReiheliegen(self,Spieler,Gegner):
+        self.__ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(Spieler,Gegner,42)
+        if self.__Spielzug =="":
+            self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,2)
+            if self.__Spielzug =="":
+                self.__ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(Spieler,Gegner,42)
 
 
-    def ÜberprüfungZugzumGewinn_senkrecht(self,Spieler,Gegner):
+        # Überprüfung ob ein Stein in einer Reihe liegt, damit der zug nicht komplet zufällig ist
+    def __ÜberprüfungobeinSteineineinerReiheliegt(self,Spieler,Gegner):
+        self.__ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(Spieler,Gegner,23)
+        if self.__Spielzug =="":
+            self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,1)
+            if self.__Spielzug =="":
+                self.__ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(Spieler,Gegner, 23)
+
+
+
+    def __ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(self,Spieler,Gegner, PunktefuerZug):
         #### Senkrecht
         
         for x in range(7):
             zähler = 0
             for y in range(6):
                 if self.__Spielfeld[y][x] == Spieler:
+                    zähler = zähler + 20
+                if self.__Spielfeld[y][x] == "w":
                     zähler = zähler + 1
                 elif self.__Spielfeld[y][x] == Gegner:
                     break
-            if zähler == 3:
+            if zähler >= PunktefuerZug:
                 self.__Spielzug = x
                 break
 
         ##### Waagerecht
-        """ 
-        funktioniert noch nicht
-        x positionx muss besser ermittlet werden
-        Idee: Wenn auf gelb splate minus eins feld dann überprüfen, wenn besetzt spalte plus 4
-        """
-    def ÜberprüfungZugzumGewinn_waagerecht(self,Spieler,Gegner):
-        zähler = 0
-        positionx = None
-        psitiony = None
+
+    def __ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(self,Spieler,Gegner, PunktefuerZug):
+        Felderaddieren = 0
+        if PunktefuerZug == 61:
+            Felderaddieren = 4
+        elif PunktefuerZug == 42:
+            Felderaddieren = 3
+        elif PunktefuerZug == 23:
+            Felderaddieren = 2
+
         for y in range(5,-1,-1):
             if self.__Spielzug != "":
                 break
-            leer = False
+            positionx = None
+            psitiony = None
+            weißenthalten = False
             zähler = 0
             for x in range(7):
                 if self.__Spielfeld[y][x] == Spieler:
-                    zähler = zähler + 1
+                    zähler = zähler + 20
                 elif self.__Spielfeld[y][x] == Gegner:
                     zähler = 0
-                    leer = False
+                    weißenthalten = False
                 elif self.__Spielfeld[y][x] == "w":
-                    if leer == False:
-                        zähler = zähler+1
+                    zähler = zähler + 1
+                    weißenthalten = True
+                    if zähler <= 20 or zähler == 61 or zähler == 42 or zähler == 23 or zähler == PunktefuerZug-1 or zähler == PunktefuerZug-2 or zähler+19:
                         positionx = x
                         positiony = y
-                        leer = True
-                    elif zähler >1:
-                        positionx = x
-                        positiony = y
-                        #zähler = zähler + 1
-
-                    else:
-                        zähler = 1
-                        positionx = x
-                        positiony = y
-                if zähler == 4:
+                if zähler >= PunktefuerZug and weißenthalten == True:
                     if self.SinnvollerZug(positionx,positiony) == True:
                         self.__Spielzug = positionx
                         break
-                    elif positionx + 4 <= 6 and self.__Spielfeld[positiony][positionx + 4] == "w":
-                        if self.SinnvollerZug(positionx + 4,positiony) == True:
-                            self.__Spielzug = positionx + 4
+                    elif positionx + Felderaddieren <= 6 and self.__Spielfeld[positiony][positionx + Felderaddieren] == "w":
+                        if self.SinnvollerZug(positionx + Felderaddieren,positiony) == True:
+                            self.__Spielzug = positionx + Felderaddieren
                             break
 
 
         #### Diagonal
-    def ÜberprüfungZugzumGewinn_diagonal(self,Spieler,Gegner):
+    def __ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(self,Spieler,Gegner,PunktefuerZug):
         for x1 in range(7):
             
-            zähler = 0
+            
             if self.__Spielzug != "":
                 break
             for y1 in range(6):
+                zähler = 0
                 y = copy.deepcopy(y1)
                 x = copy.deepcopy(x1)
                 if self.__Spielfeld[y1][x1] == "w":
@@ -124,7 +139,7 @@ class KI:
                                 break
                         else:
                             break
-                    if zähler >= 3:
+                    if zähler >= PunktefuerZug:
                         if self.SinnvollerZug(positionx,positiony) == True:    
                             self.__Spielzug = positionx
                             break
@@ -158,122 +173,11 @@ class KI:
                             else:
                                 break
 
-                        if zähler >= 3:
+                        if zähler >= PunktefuerZug:
                             if self.SinnvollerZug(positionx,positiony) == True:
                                 self.__Spielzug = positionx
                                 break
 
-
-    #def ÜberprüfungZugschlaulegen(self,Spieler,Gegner):
-    #    #### Senkrecht
-    #    zähler = 0
-    #    eigenerSpielerenthalten = False
-    #    for x in range(7):
-    #        for y in range(6):
-    #            if self.__Spielfeld[y][x] == Spieler:
-    #                zähler = zähler + 1
-    #                eigenerSpielerenthalten = True
-    #            elif self.__Spielfeld[y][x] == "w":
-    #                zähler = zähler + 1
-    #            elif self.__Spielfeld[y][x] == Gegner:
-    #                break
-    #        if zähler == 4 and eigenerSpielerenthalten == True:
-    #            self.__Spielzug = x
-
-    #    ##### Waagerecht
-    #    zähler = 0
-    #    positionx = None
-    #    eigenerSpielerenthalten = False
-    #    for y in range(6):
-    #        leer = False
-    #        for x in range(7):
-    #            if self.__Spielfeld[y][x] == Spieler:
-    #                zähler = zähler + 1
-    #                eigenerSpielerenthalten = True
-    #            elif self.__Spielfeld[y][x] == "w":
-    #                zähler = zähler + 1
-    #                positionx = x
-    #            elif self.__Spielfeld[y][x] == Gegner:
-    #                zähler = 0
-    #            if zähler == 4 and eigenerSpielerenthalten == True:
-    #                self.__Spielzug = positionx
-
-    #    #### Diagonal
-    #    eigenerSpielerenthalten = False
-    #    positionx = None
-    #    for x in range(7):
-    #        zähler = 0
-    #        for y in range(6):
-    #            if self.__Spielfeld[y][x] == Spieler or self.__Spielfeld[y][x] == Gegner:
-    #                y = y -1
-    #                positionx = x
-    #                schleife = True
-    #                while schleife: 
-    #                    if y < 5 and x > 0:
-    #                        y = y+1
-    #                        x=x-1
-    #                        if self.__Spielfeld[y][x] == Spieler:
-    #                            zähler = zähler + 1
-    #                            eigenerSpielerenthalten = True
-    #                        elif self.__Spielfeld[y][x] == "w":
-    #                            zähler = zähler + 1
-    #                        else:
-    #                            break
-    #                    else:
-    #                        break
-
-    #                schleife = True
-    #                while schleife: 
-    #                    if y > 0 and x < 6:
-    #                        y = y-1
-    #                        x=x+1
-    #                        if self.__Spielfeld[y][x] == Spieler:
-    #                            zähler = zähler + 1
-    #                            eigenerSpielerenthalten = True
-    #                        elif self.__Spielfeld[y][x] == "w":
-    #                            zähler = zähler + 1
-    #                        else:
-    #                            break
-    #                    else:
-    #                        break
-    #                if zähler >= 4 and eigenerSpielerenthalten == True:
-    #                    self._Spielzug = positionx
-
-    #                else:
-    #                    zähler = 0
-    #                    eigenerSpielerenthalten=False
-    #                    positionx = None
-    #                    schleife = True
-    #                    while schleife: 
-    #                        if y < 5 and x < 6:
-    #                            y = y+1
-    #                            x=x+1
-    #                            if self.__Spielfeld[y][x] == Spieler:
-    #                                zähler = zähler + 1
-    #                                eigenerSpielerenthalten = True
-    #                            elif self.__Spielfeld[y][x] == "w":
-    #                                zähler = zähler + 1
-    #                            else:
-    #                                break
-    #                        else:
-    #                            break
-    #                    schleife = True
-    #                    while schleife: 
-    #                        if y > 0 and x > 0:
-    #                            y = y-1
-    #                            x=x-1
-    #                            if self.__Spielfeld[y][x] == Spieler:
-    #                                zähler = zähler + 1
-    #                                eigenerSpielerenthalten = True
-    #                            elif self.__Spielfeld[y][x] == "w":
-    #                                zähler = zähler + 1
-    #                            else:
-    #                                break
-    #                        else:
-    #                            break
-
-    #                    if zähler >= 4 and eigenerSpielerenthalten == True:
-    #                        self.__Spielzug = positionx
 
     def SinnvollerZug(self, Zug, Ebene = 10000):
         # überprüfung ob der Stein auch auf der richtigen Ebene landet
@@ -290,13 +194,17 @@ class KI:
         self.__VierGewinntKlasse = viergewinntklasse(spielfeld,reststeine)
         self.__VierGewinntKlasse.setSpielzug(Zug)
         self.__VierGewinntKlasse.ausführen()
+        Array = copy.deepcopy(self.__Spielfeld)
+        self.__Spielfeld = copy.deepcopy(self.__VierGewinntKlasse.getArray())
+        self.__ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
+        self.__Spielfeld = copy.deepcopy(Array)
         self.__VierGewinntKlasse.setSpielzug(Zug)
         self.__VierGewinntKlasse.ausführen()
-        if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe:
+        if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe or self.__Spielzug == Zug:
             return False
         else: 
+            # Überprüfung ob man sich selber verbauen kann
             return True
-
 
 
     def Spielzuggenerieren(self):
@@ -308,25 +216,39 @@ class KI:
             self.__Spielzug = 3
             return self.__Spielzug
         # Überprüfung ob man selber gewinnen kann
-        self.ÜberprüfungZugzumGewinn(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
+        self.__ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
         if self.__Spielzug != "":
             return self.__Spielzug
 
         # Überprüfung ob Gegner gewinnen kann und positionsermittlung um dies zuverhindern
-        self.ÜberprüfungZugzumGewinn(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe)
+        self.__ÜberprüfungobdreiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe)
         if self.__Spielzug != "":
             return self.__Spielzug
 
+        # Überprüfung ob der Gegner zwei Steine in einer Zeile hat
+        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe)
+        if self.__Spielzug != "":
+            return self.__Spielzug
+
+        # Überprüfung ob man selber zwei Steine in einer Zeile hat
+        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe)
+        if self.__Spielzug != "":
+            return self.__Spielzug
+
+        # Damit es nicht komplett zufällig wird
+        self.__ÜberprüfungobeinSteineineinerReiheliegt(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe)
+        if self.__Spielzug != "":
+            return self.__Spielzug
+
+
+        # Wenn alles versagt hilft nur noch der Zufall
         x=0
         while True:
             x=x + 1
             self.__Spielzug = randint(0,6)
-            #self.__Spielzug = 2
             # Überprüfung
-            #   if self.__Spielzug ==0:
-            #       print("Hallo")
             if self.SinnvollerZug(self.__Spielzug) == True or x == 1000:
-                return self.__Spielzug # falsche Einrückung
+                return self.__Spielzug
 
 
 
