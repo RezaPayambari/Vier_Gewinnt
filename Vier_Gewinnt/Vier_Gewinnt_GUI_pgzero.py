@@ -2,6 +2,7 @@ import pgzrun
 from Vier_Gewinnt_Klasse import viergewinntklasse
 import time
 from Vier_Gewinnt_KI import KI
+import sys
 
 
 
@@ -54,7 +55,7 @@ def zweiKIsSpielen():
     if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler2KI == True:
         vier_Gewinnt_KI_1.setSpielfeld(Array)
         Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
-        time.sleep(3)
+        time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
         
@@ -62,7 +63,7 @@ def zweiKIsSpielen():
     elif Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True:
         vier_Gewinnt_KI_1.setSpielfeld(Array)
         Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
-        time.sleep(3)
+        time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
         
@@ -241,7 +242,7 @@ Vier_Gewinnt = viergewinntklasse()
 vier_Gewinnt_KI_1 = KI("gr","ge")
 HEIGHT = 600
 WIDTH = 700
-
+sys.setrecursionlimit(2000)
 Spieler1KI = None
 Spieler2KI = None
 
