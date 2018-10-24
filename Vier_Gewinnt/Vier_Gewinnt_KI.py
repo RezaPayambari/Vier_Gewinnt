@@ -52,15 +52,18 @@ class KI:
         
         for x in range(7):
             zähler = 0
+            ebene = 0
+            weißenthalten = False
             for y in range(6):
                 if self.__Spielfeld[y][x] == Spieler:
                     zähler = zähler + 20
                 if self.__Spielfeld[y][x] == "w":
                     zähler = zähler + 1
+                    weißenthalten = True
                     ebene = y
                 elif self.__Spielfeld[y][x] == Gegner:
                     break
-            if zähler >= PunktefuerZug:
+            if zähler >= PunktefuerZug and weißenthalten == True:
                 if self.SinnvollerZug(x,Zugüberprüfung,ebene) == True:
                     self.__Spielzug = x
                     break
@@ -93,7 +96,8 @@ class KI:
                 elif self.__Spielfeld[y][x] == "w":
                     zähler = zähler + 1
                     weißenthalten = True
-                    if (zähler <= 20 or zähler == 61 or zähler == 42 or zähler == 23 or zähler == PunktefuerZug-1 or zähler == PunktefuerZug-2) and variable5 == True:
+               #     if (zähler <= 20 or zähler == 61 or zähler == 42 or zähler == 23 or zähler == PunktefuerZug-1 or zähler == PunktefuerZug-2) and variable5 == True:
+                    if variable5 == True:
                         # abfrage wird benötigt um sicherzugehen, dass der Stein direkt neben dem bereits bestehenden Stein liegt
                         if zähler >= 20:
                             variable5 = False
@@ -193,8 +197,13 @@ class KI:
 
     def SinnvollerZug(self, Zug,zugüberprüfung, Ebene):
         # überprüfung ob der Stein auch auf der richtigen Ebene landet
-        if Ebene == None:
+        if Zug == None:
+            return False
+        #if Ebene == 0 or Ebene == None or Ebene == 10000:
+        if Ebene == None or Ebene == 10000:
             Ebene = 10000
+            if self.__Spielfeld[int(0)][Zug] != "w":
+                return False
         if Ebene != 10000 and Ebene < 5:
             if self.__Spielfeld[int(Ebene)+1][Zug] == "w":
                 return False
@@ -216,12 +225,12 @@ class KI:
             testKI.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,False)
             testKIZug = testKI.__Spielzug
             """ Idee"""
-            if self.__VierGewinntKlasse.getErgebnis != "":
-                testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe)
-                testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
-                testgegnerZug = testKI.Spielzuggenerieren(True)
+       #     if self.__VierGewinntKlasse.getErgebnis != "":
+        #        testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe)
+         #       testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
+          #      testgegnerZug = testKI.Spielzuggenerieren(True)
             """ Test """
-           # testgegnerZug = Zug
+            testgegnerZug = Zug
             if testgegnerZug != None:
                 self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
                 self.__VierGewinntKlasse.ausführen()
@@ -275,15 +284,15 @@ class KI:
         while True:
             x=x + 1
             self.__Spielzug = randint(0,6)
-            y1 = 0
-            for y in range(0,6):
-                if self.__Spielfeld[y][self.__Spielzug] != "w":
-                    break
-                y1 = y
+       #     y1 = 0
+        #    for y in range(0,6):
+         #       if self.__Spielfeld[y][self.__Spielzug] != "w":
+          #          break
+           #     y1 = y
             # Überprüfung
             if self.SinnvollerZug(self.__Spielzug,True,10000) == True:
                 return self.__Spielzug
-            if x == 1000:
+            if x >= 1000:
                 if self.SinnvollerZug(self.__Spielzug,False,10000) == True:
                     return self.__Spielzug
 
