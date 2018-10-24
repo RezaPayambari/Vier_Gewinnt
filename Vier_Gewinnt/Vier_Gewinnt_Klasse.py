@@ -169,7 +169,7 @@ class viergewinntklasse:
                 elif self.__Array[y][x] == "w":
                     zählerSpielergruen = 0
                     zählerSpielergelb = 0
-                if y >=0:
+                if y > 0:
                     y = y-1
                 else:
                     break

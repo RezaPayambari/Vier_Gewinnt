@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b6f0829f-5f3e-4745-80dd-9d61096a8dc8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Vier_Gewinnt_GUI_pgzero.py</StartupFile>
+    <StartupFile>test_KI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

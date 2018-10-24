@@ -64,7 +64,7 @@ class KI:
                 elif self.__Spielfeld[y][x] == Gegner:
                     break
             if zähler >= PunktefuerZug and weißenthalten == True:
-                if self.SinnvollerZug(x,Zugüberprüfung,ebene) == True:
+                if self.SinnvollerZug(x,Zugüberprüfung,ebene,False) == True:
                     self.__Spielzug = x
                     break
 
@@ -104,11 +104,11 @@ class KI:
                         positionx = x
                         positiony = y
                 if zähler >= PunktefuerZug and zähler <= PunktefuerZug+5 and weißenthalten == True:
-                    if self.SinnvollerZug(positionx,Zugüberprüfung,positiony) == True:
+                    if self.SinnvollerZug(positionx,Zugüberprüfung,positiony,False) == True:
                         self.__Spielzug = positionx
                         break
                     elif positionx + Felderaddieren <= 6 and self.__Spielfeld[positiony][positionx + Felderaddieren] == "w":
-                        if self.SinnvollerZug(positionx + Felderaddieren,Zugüberprüfung,positiony) == True:
+                        if self.SinnvollerZug(positionx + Felderaddieren,Zugüberprüfung,positiony,False) == True:
                             self.__Spielzug = positionx + Felderaddieren
                             break
 
@@ -156,7 +156,7 @@ class KI:
                         else:
                             break
                     if zähler >= PunktefuerZug:
-                        if self.SinnvollerZug(positionx,zugüberprüfung,positiony) == True:    
+                        if self.SinnvollerZug(positionx,zugüberprüfung,positiony,False) == True:    
                             self.__Spielzug = positionx
                             break
 
@@ -190,12 +190,12 @@ class KI:
                                 break
 
                         if zähler >= PunktefuerZug:
-                            if self.SinnvollerZug(positionx,zugüberprüfung,positiony) == True:
+                            if self.SinnvollerZug(positionx,zugüberprüfung,positiony,False) == True:
                                 self.__Spielzug = positionx
                                 break
 
 
-    def SinnvollerZug(self, Zug,zugüberprüfung, Ebene):
+    def SinnvollerZug(self, Zug,zugüberprüfung, Ebene,egal):
         # überprüfung ob der Stein auch auf der richtigen Ebene landet
         if Zug == None:
             return False
@@ -236,11 +236,15 @@ class KI:
                 self.__VierGewinntKlasse.ausführen()
             else:
                 return False
-            if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe or testKIZug != "":
+            #  "    Kontrolle ob der Gegner mit dem nächsten Zug gewinnen kann       
+            if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe:
                 return False
             else: 
                 # Überprüfung ob man sich selber verbauen kann
-                return True
+                if testKIZug == "" or egal == True:
+                    return True
+                else:
+                    return False
         else:
             return True
 
@@ -271,7 +275,7 @@ class KI:
         # Überprüfung ob man selber zwei Steine in einer Zeile hat
         self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":
-            return self.__Spielzug
+            return self.__Spielzug####################################
 
         # Damit es nicht komplett zufällig wird
         self.__ÜberprüfungobeinSteineineinerReiheliegt(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
@@ -290,10 +294,15 @@ class KI:
           #          break
            #     y1 = y
             # Überprüfung
-            if self.SinnvollerZug(self.__Spielzug,True,10000) == True:
+            if self.SinnvollerZug(self.__Spielzug,True,10000,False) == True:
                 return self.__Spielzug
+
+            if x >= 500:
+                if self.SinnvollerZug(self.__Spielzug,True,10000,True) == True:
+                    return self.__Spielzug
+
             if x >= 1000:
-                if self.SinnvollerZug(self.__Spielzug,False,10000) == True:
+                if self.SinnvollerZug(self.__Spielzug,False,10000,False) == True:
                     return self.__Spielzug
 
 
