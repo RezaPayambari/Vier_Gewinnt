@@ -8,6 +8,7 @@ class KI:
         self.__eigeneSpielsteinfarbe = eigendeSpielsteinfarbe
         self.__fremdeSpielsteinfarbe = fremdeSpielsteinfarbe
         self.__Spielzug = ""
+        self.__Spielzuege = []
         self.__VierGewinntKlasse = None
         
 
@@ -18,33 +19,38 @@ class KI:
     def ÜberprüfungobdreiSteineineinerReiheliegen(self,Spieler,Gegner,Überprüfung):
         if Überprüfung == None:
             Überprüfung = True
+        self.__Spielzuege = []
         self.__ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(Spieler,Gegner, 61,False)
         if self.__Spielzug =="":
             self.__ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(Spieler,Gegner,61,False)
             if self.__Spielzug =="":
-                self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,3,False)
+                self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,90,False)
+        self.__Spielzuegeauswerten()
 
     # Überprüfung ob zwei Steine in einer Reihe liegen und dann daneben legen, um Zwickmühlen zuverhindern
     def __ÜberprüfungobzweiSteineineinerReiheliegen(self,Spieler,Gegner,Überprüfung):
         if Überprüfung == None:
             Überprüfung = True
+        self.__Spielzuege = []
         self.__ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(Spieler,Gegner,42,Überprüfung)
         if self.__Spielzug =="":
-            self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,2,Überprüfung)
+            self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,62,Überprüfung)
             if self.__Spielzug =="":
                 self.__ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(Spieler,Gegner,42,Überprüfung)
+        self.__Spielzuegeauswerten()
 
 
         # Überprüfung ob ein Stein in einer Reihe liegt, damit der zug nicht komplet zufällig ist
     def __ÜberprüfungobeinSteineineinerReiheliegt(self,Spieler,Gegner,Überprüfung):
         if Überprüfung == None:
             Überprüfung = True
+        self.__Spielzuege = []
         self.__ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(Spieler,Gegner,23,Überprüfung)
         if self.__Spielzug =="":
-            self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,1,Überprüfung)
+            self.__ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(Spieler,Gegner,33,Überprüfung)
             if self.__Spielzug =="":
                 self.__ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(Spieler,Gegner, 23,Überprüfung)
-
+        self.__Spielzuegeauswerten()
 
 
     def __ÜberprüfungwievieleSteineineinerReiheliegen_senkrecht(self,Spieler,Gegner, PunktefuerZug,Zugüberprüfung):
@@ -65,9 +71,9 @@ class KI:
                     break
             if zähler >= PunktefuerZug and weißenthalten == True:
                 if self.SinnvollerZug(x,Zugüberprüfung,ebene,False) == True:
-                    self.__Spielzug = x
-                    break
-
+                   # self.__Spielzug = x
+                   # break
+                   self.__Spielzuege.append(x)
         ##### Waagerecht
 
     def __ÜberprüfungwievieleSteineineinerReiheliegen_waagerecht(self,Spieler,Gegner, PunktefuerZug,Zugüberprüfung):
@@ -80,8 +86,8 @@ class KI:
             Felderaddieren = 2
 
         for y in range(5,-1,-1):
-            if self.__Spielzug != "":
-                break
+            #if self.__Spielzug != "":
+                #break
             positionx = None
             positiony = None
             weißenthalten = False
@@ -105,21 +111,22 @@ class KI:
                         positiony = y
                 if zähler >= PunktefuerZug and zähler <= PunktefuerZug+5 and weißenthalten == True:
                     if self.SinnvollerZug(positionx,Zugüberprüfung,positiony,False) == True:
-                        self.__Spielzug = positionx
-                        break
+                        #self.__Spielzug = positionx
+                        #break
+                        self.__Spielzuege.append(positionx)
                     elif positionx + Felderaddieren <= 6 and self.__Spielfeld[positiony][positionx + Felderaddieren] == "w":
                         if self.SinnvollerZug(positionx + Felderaddieren,Zugüberprüfung,positiony,False) == True:
-                            self.__Spielzug = positionx + Felderaddieren
-                            break
-
+                            #self.__Spielzug = positionx + Felderaddieren
+                            #break
+                            self.__Spielzuege.append(positionx + Felderaddieren)
 
         #### Diagonal
     def __ÜberprüfungwievieleSteineineinerReiheliegen_diagonal(self,Spieler,Gegner,PunktefuerZug,zugüberprüfung):
         for x1 in range(7):
             
             
-            if self.__Spielzug != "":
-                break
+           # if self.__Spielzug != "":
+            #    break
             for y1 in range(6):
                 zähler = 0
                 y = copy.deepcopy(y1)
@@ -136,6 +143,8 @@ class KI:
                             y = y+1
                             x = x-1
                             if self.__Spielfeld[y][x] == Spieler:
+                                zähler = zähler + 30
+                            elif self.__Spielfeld[y][x] == "w" and PunktefuerZug != 90:
                                 zähler = zähler + 1
                             else:
                                 break
@@ -150,6 +159,8 @@ class KI:
                             y = y-1
                             x=x+1
                             if self.__Spielfeld[y][x] == Spieler:
+                                zähler = zähler + 30
+                            elif self.__Spielfeld[y][x] == "w" and PunktefuerZug != 90:
                                 zähler = zähler + 1
                             else:
                                 break
@@ -157,8 +168,9 @@ class KI:
                             break
                     if zähler >= PunktefuerZug:
                         if self.SinnvollerZug(positionx,zugüberprüfung,positiony,False) == True:    
-                            self.__Spielzug = positionx
-                            break
+                           # self.__Spielzug = positionx
+                            #break
+                            self.__Spielzuege.append(positionx)
 
                     else:
                         zähler = 0
@@ -170,6 +182,8 @@ class KI:
                                 y = y+1
                                 x=x+1
                                 if self.__Spielfeld[y][x] == Spieler:
+                                    zähler = zähler + 30
+                                elif self.__Spielfeld[y][x] == "w" and PunktefuerZug != 90:
                                     zähler = zähler + 1
                                 else:
                                     break
@@ -183,6 +197,8 @@ class KI:
                                 y = y-1
                                 x=x-1
                                 if self.__Spielfeld[y][x] == Spieler:
+                                    zähler = zähler + 30
+                                elif self.__Spielfeld[y][x] == "w" and PunktefuerZug != 90:
                                     zähler = zähler + 1
                                 else:
                                     break
@@ -191,8 +207,9 @@ class KI:
 
                         if zähler >= PunktefuerZug:
                             if self.SinnvollerZug(positionx,zugüberprüfung,positiony,False) == True:
-                                self.__Spielzug = positionx
-                                break
+                                #self.__Spielzug = positionx
+                                #break
+                                self.__Spielzuege.append(positionx)
 
 
     def SinnvollerZug(self, Zug,zugüberprüfung, Ebene,egal):
@@ -275,7 +292,7 @@ class KI:
         # Überprüfung ob man selber zwei Steine in einer Zeile hat
         self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":
-            return self.__Spielzug####################################
+            return self.__Spielzug
 
         # Damit es nicht komplett zufällig wird
         self.__ÜberprüfungobeinSteineineinerReiheliegt(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
@@ -288,12 +305,7 @@ class KI:
         while True:
             x=x + 1
             self.__Spielzug = randint(0,6)
-       #     y1 = 0
-        #    for y in range(0,6):
-         #       if self.__Spielfeld[y][self.__Spielzug] != "w":
-          #          break
-           #     y1 = y
-            # Überprüfung
+
             if self.SinnvollerZug(self.__Spielzug,True,10000,False) == True:
                 return self.__Spielzug
 
@@ -306,6 +318,26 @@ class KI:
                     return self.__Spielzug
 
 
+    def __Spielzuegeauswerten(self):
+
+        if len(self.__Spielzuege) > 0:
+
+            liste = []
+
+            for i in range(len(self.__Spielzuege)):
+                liste.append(self.__Spielzuege.count(self.__Spielzuege[i]))
+ 
+            maximum = max(liste)
+ 
+            for i in range(len(liste)):
+                if self.__Spielzuege.count(self.__Spielzuege[i]) == maximum:
+                    self.__Spielzug = self.__Spielzuege[i]
+                    break
+
+       #     if 
+
+        else:
+            self.__Spielzug = ""
 
 
 

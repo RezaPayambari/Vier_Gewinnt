@@ -684,44 +684,88 @@ class Test_test_KI(unittest.TestCase):
         self.assertEqual(2,Output,"Test Z ist fehlgeschlagen")
 
     def test_AA(self):
-        for i in range(100):
-            Viergewinnt_ki = KI("ge","gr")
-            Array = [["w" for x in range(7)] for y in range(6)]
-            Array[4][0] = 'ge'
-            Array[5][0] = 'gr'
-            Array[0][1] = 'ge'
-            Array[1][1] = 'gr'
-            Array[2][1] = 'ge'
-            Array[3][1] = 'ge'
-            Array[4][1] = 'gr'
-            Array[5][1] = 'ge'
-            Array[0][2] = 'ge'
-            Array[1][2] = 'ge'
-            Array[2][2] = 'gr'
-            Array[3][2] = 'ge'
-            Array[4][2] = 'ge'
-            Array[5][2] = 'gr'
-            Array[0][3] = 'gr'
-            Array[1][3] = 'gr'
-            Array[2][3] = 'ge'
-            Array[3][3] = 'gr'
-            Array[4][3] = 'gr'
-            Array[5][3] = 'ge'
-            Array[0][4] = 'gr'
-            Array[1][4] = 'gr'
-            Array[2][4] = 'ge'
-            Array[3][4] = 'gr'
-            Array[4][4] = 'ge'
-            Array[5][4] = 'ge'
-            Array[4][5] = 'gr'
-            Array[5][5] = 'gr'
+   #     for i in range(100):
+        Viergewinnt_ki = KI("ge","gr")
+        Array = [["w" for x in range(7)] for y in range(6)]
+        Array[4][0] = 'ge'
+        Array[5][0] = 'gr'
+        Array[0][1] = 'ge'
+        Array[1][1] = 'gr'
+        Array[2][1] = 'ge'
+        Array[3][1] = 'ge'
+        Array[4][1] = 'gr'
+        Array[5][1] = 'ge'
+        Array[0][2] = 'ge'
+        Array[1][2] = 'ge'
+        Array[2][2] = 'gr'
+        Array[3][2] = 'ge'
+        Array[4][2] = 'ge'
+        Array[5][2] = 'gr'
+        Array[0][3] = 'gr'
+        Array[1][3] = 'gr'
+        Array[2][3] = 'ge'
+        Array[3][3] = 'gr'
+        Array[4][3] = 'gr'
+        Array[5][3] = 'ge'
+        Array[0][4] = 'gr'
+        Array[1][4] = 'gr'
+        Array[2][4] = 'ge'
+        Array[3][4] = 'gr'
+        Array[4][4] = 'ge'
+        Array[5][4] = 'ge'
+        Array[4][5] = 'gr'
+        Array[5][5] = 'gr'
 
 
-            Viergewinnt_ki.setSpielfeld(Array)
-            Output = Viergewinnt_ki.Spielzuggenerieren()
-            print("Test AA Zug: "+ str(Output))
-            self.assertEqual(5,Output,"Test AA ist fehlgeschlagen")
+        Viergewinnt_ki.setSpielfeld(Array)
+        Output = Viergewinnt_ki.Spielzuggenerieren()
+        print("Test AA Zug: "+ str(Output))
+        self.assertEqual(6,Output,"Test AA ist fehlgeschlagen")
 
+    def test_AB(self):
+        Viergewinnt_ki = KI("gr","ge")
+        Array = [["w" for x in range(7)] for y in range(6)]
+
+        Array[0][0] = 'ge'
+        Array[1][0] = 'gr'
+        Array[2][0] = 'ge'
+        Array[3][0] = 'gr'
+        Array[4][0] = 'ge'
+        Array[5][0] = 'gr'
+        Array[3][1] = 'gr'
+        Array[4][1] = 'ge'
+        Array[5][1] = 'ge'
+        Array[0][2] = 'ge'
+        Array[1][2] = 'gr'
+        Array[2][2] = 'ge'
+        Array[3][2] = 'ge'
+        Array[4][2] = 'gr'
+        Array[5][2] = 'gr'
+        Array[0][3] = 'ge'
+        Array[1][3] = 'gr'
+        Array[2][3] = 'gr'
+        Array[3][3] = 'ge'
+        Array[4][3] = 'gr'
+        Array[5][3] = 'ge'
+        Array[0][4] = 'gr'
+        Array[1][4] = 'ge'
+        Array[2][4] = 'gr'
+        Array[3][4] = 'gr'
+        Array[4][4] = 'ge'
+        Array[5][4] = 'ge'
+        Array[4][5] = 'ge'
+        Array[5][5] = 'gr'
+        Array[2][6] = 'ge'
+        Array[3][6] = 'gr'
+        Array[4][6] = 'ge'
+        Array[5][6] = 'gr'
+
+
+
+        Viergewinnt_ki.setSpielfeld(Array)
+        Output = Viergewinnt_ki.Spielzuggenerieren()
+        print("Test AB Zug: "+ str(Output))
+        self.assertEqual(5,Output,"Test AB ist fehlgeschlagen")
 
 
         
