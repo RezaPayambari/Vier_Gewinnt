@@ -61,8 +61,8 @@ def zweiKIsSpielen():
         
     # ===============================================================================================================================================================================================================================
     elif Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True:
-        vier_Gewinnt_KI_1.setSpielfeld(Array)
-        Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
+        vier_Gewinnt_KI_2.setSpielfeld(Array)
+        Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_2.Spielzuggenerieren())
         time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
@@ -132,8 +132,8 @@ def on_mouse_down(pos):
 
         # ===============================================================================================================================================================================================================================
         if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True and Spieler2KI == False:
-            vier_Gewinnt_KI_1.setSpielfeld(Array)
-            Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
+            vier_Gewinnt_KI_2.setSpielfeld(Array)
+            Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_2.Spielzuggenerieren())
             time.sleep(1)
             Vier_Gewinnt.ausführen()
         # ================================================================================================================================================================================================================================
@@ -164,8 +164,8 @@ def on_mouse_down(pos):
             Spielbeginnt = True
 
             if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True and Spieler2KI == False:
-                vier_Gewinnt_KI_1.setSpielfeld(Array)
-                Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
+                vier_Gewinnt_KI_2.setSpielfeld(Array)
+                Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_2.Spielzuggenerieren())
                 Vier_Gewinnt.ausführen()
             __Spielfeldgenerieren()
 
@@ -240,6 +240,7 @@ class labelklasse:
 
 Vier_Gewinnt = viergewinntklasse()
 vier_Gewinnt_KI_1 = KI("gr","ge")
+vier_Gewinnt_KI_2 = KI("ge","gr")
 HEIGHT = 600
 WIDTH = 700
 sys.setrecursionlimit(2000)
