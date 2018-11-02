@@ -216,12 +216,12 @@ class KI:
             testKI.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,False)
             testKIZug = testKI.__Spielzug
             """ Idee"""
-            if self.__VierGewinntKlasse.getErgebnis != "":
-                testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe)
-                testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
-                testgegnerZug = testKI.Spielzuggenerieren(True)
+          #  if self.__VierGewinntKlasse.getErgebnis != "":
+           #     testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe)
+            #    testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
+             #   testgegnerZug = testKI.Spielzuggenerieren(True)
             """ Test """
-           # testgegnerZug = Zug
+            testgegnerZug = Zug
             if testgegnerZug != None:
                 self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
                 self.__VierGewinntKlasse.ausführen()
