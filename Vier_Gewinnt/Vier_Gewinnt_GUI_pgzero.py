@@ -243,7 +243,7 @@ vier_Gewinnt_KI_1 = KI("gr","ge")
 vier_Gewinnt_KI_2 = KI("ge","gr")
 HEIGHT = 600
 WIDTH = 700
-sys.setrecursionlimit(2000)
+sys.setrecursionlimit(10000)
 Spieler1KI = None
 Spieler2KI = None
 
