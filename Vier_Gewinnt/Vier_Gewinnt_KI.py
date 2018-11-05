@@ -1,16 +1,22 @@
 from random import *
 import copy
+import threading
 
 from Vier_Gewinnt_Klasse import viergewinntklasse
 class KI:
-    def __init__(self,eigendeSpielsteinfarbe,fremdeSpielsteinfarbe):
+    def __init__(self,eigendeSpielsteinfarbe,fremdeSpielsteinfarbe,tiefe):
         self.__Spielfeld = [["w" for x in range(7)] for y in range(6)]
         self.__eigeneSpielsteinfarbe = eigendeSpielsteinfarbe
         self.__fremdeSpielsteinfarbe = fremdeSpielsteinfarbe
         self.__Spielzug = ""
         self.__Spielzuege = []
         self.__VierGewinntKlasse = None
+        self.__tiefe = tiefe
+        testgegnerZug = None
         
+        
+    def getTiefe(self):
+        return self.__tiefe
 
     def setSpielfeld(self,Spielfeld):
         self.__Spielfeld = copy.deepcopy(Spielfeld)
@@ -237,10 +243,11 @@ class KI:
             self.__VierGewinntKlasse.setSpielzug(Zug)
             self.__VierGewinntKlasse.ausführen()
             # Überprüfung ob man mit dem übernächsten zug gewinnen kann
-            testKI = KI(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
+            testKI = KI(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,self.__tiefe)
             testKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
             testKI.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,False)
             testKIZug = testKI.__Spielzug
+            self.__tiefe = testKI.getTiefe()
             # Erste Idee eines rekursiven Aufrufs
           #  """ Idee"""
            #if self.__VierGewinntKlasse.getErgebnis != "":
@@ -263,9 +270,10 @@ class KI:
                     #return True
                     """ Idee"""
                     if self.__VierGewinntKlasse.getErgebnis != "":
-                        testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe)
+                        testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe,self.__tiefe)
                         testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
                         testgegnerZug = testKI.rekusiver_Aufruf()
+                        self.__tiefe = testgegnerKI.getTiefe()
                         if testgegnerZug != None:
                             self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
                             self.__VierGewinntKlasse.ausführen()
@@ -286,25 +294,33 @@ class KI:
 
 
     def rekusiver_Aufruf(self):
+        self.__tiefe = testgegnerKI.getTiefe()
+        if self.__tiefe <= 1:
+            Zugüberprüfung = True
+        else:
+            Zugüberprüfung = False
+        self.__tiefe = self.__tiefe + 1
         # Überprüfung ob man selber gewinnen kann
-        self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,True)
+        self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":
             return self.__Spielzug
 
         # Überprüfung ob Gegner gewinnen kann und positionsermittlung um dies zuverhindern
-        self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,True)
+        self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":
             return self.__Spielzug
 
         # Überprüfung ob der Gegner zwei Steine in einer Zeile hat
-        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,True)
+        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":
             return self.__Spielzug
 
         # Überprüfung ob man selber zwei Steine in einer Zeile hat
-        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,True)
+        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":
             return self.__Spielzug
+
+        
 
     def Spielzuggenerieren(self,Zugüberprüfung = None):
         self.__Spielzug = ""
