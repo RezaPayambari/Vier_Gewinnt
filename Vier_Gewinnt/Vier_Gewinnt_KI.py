@@ -222,7 +222,6 @@ class KI:
         # überprüfung ob der Stein auch auf der richtigen Ebene landet
         if Zug == None:
             return False
-        #if Ebene == 0 or Ebene == None or Ebene == 10000:
         if Ebene == None or Ebene == 10000:
             Ebene = 10000
             if self.__Spielfeld[int(0)][Zug] != "w":
@@ -267,58 +266,59 @@ class KI:
             else: 
                 # Überprüfung ob man sich selber verbauen kann
                 if testKIZug == "" or egal == True:
-                    #return True
-                    """ Idee"""
-                    if self.__VierGewinntKlasse.getErgebnis != "":
-                        testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe,self.__tiefe)
-                        testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
-                        testgegnerZug = testKI.rekusiver_Aufruf()
-                        self.__tiefe = testgegnerKI.getTiefe()
-                        if testgegnerZug != None:
-                            self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
-                            self.__VierGewinntKlasse.ausführen()
-                        else:
-                            return False
-                    #  "    Kontrolle ob der Gegner mit dem nächsten Zug gewinnen kann       
-                        if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe:
-                            return False
-                        else: 
-                            # Überprüfung ob man sich selber verbauen kann
-                            if testKIZug == "" or egal == True:
-                                return True
-                    """ Test """
+                    return True
+                    #""" Idee"""
+                    # Geht aus Performancegründen nicht
+                    #if self.__VierGewinntKlasse.getErgebnis != "":
+                    #    testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe,self.__tiefe)
+                    #    testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
+                    #    testgegnerZug = testKI.rekusiver_Aufruf()
+                    #    self.__tiefe = testgegnerKI.getTiefe()
+                    #    if testgegnerZug != None:
+                    #        self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
+                    #        self.__VierGewinntKlasse.ausführen()
+                    #    else:
+                    #        return False
+                    ##  "    Kontrolle ob der Gegner mit dem nächsten Zug gewinnen kann       
+                    #    if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe:
+                    #        return False
+                    #    else: 
+                    #        # Überprüfung ob man sich selber verbauen kann
+                    #        if testKIZug == "" or egal == True:
+                    #            return True
+                    #""" Test """
                 else:
                     return False
         else:
             return True
 
 
-    def rekusiver_Aufruf(self):
-        self.__tiefe = testgegnerKI.getTiefe()
-        if self.__tiefe <= 1:
-            Zugüberprüfung = True
-        else:
-            Zugüberprüfung = False
-        self.__tiefe = self.__tiefe + 1
-        # Überprüfung ob man selber gewinnen kann
-        self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,Zugüberprüfung)
-        if self.__Spielzug != "":
-            return self.__Spielzug
+    #def rekusiver_Aufruf(self):
+    #    self.__tiefe = testgegnerKI.getTiefe()
+    #    if self.__tiefe <= 1:
+    #        Zugüberprüfung = True
+    #    else:
+    #        Zugüberprüfung = False
+    #    self.__tiefe = self.__tiefe + 1
+    #    # Überprüfung ob man selber gewinnen kann
+    #    self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,Zugüberprüfung)
+    #    if self.__Spielzug != "":
+    #        return self.__Spielzug
 
-        # Überprüfung ob Gegner gewinnen kann und positionsermittlung um dies zuverhindern
-        self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,Zugüberprüfung)
-        if self.__Spielzug != "":
-            return self.__Spielzug
+    #    # Überprüfung ob Gegner gewinnen kann und positionsermittlung um dies zuverhindern
+    #    self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,Zugüberprüfung)
+    #    if self.__Spielzug != "":
+    #        return self.__Spielzug
 
-        # Überprüfung ob der Gegner zwei Steine in einer Zeile hat
-        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,Zugüberprüfung)
-        if self.__Spielzug != "":
-            return self.__Spielzug
+    #    # Überprüfung ob der Gegner zwei Steine in einer Zeile hat
+    #    self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__fremdeSpielsteinfarbe, self.__eigeneSpielsteinfarbe,Zugüberprüfung)
+    #    if self.__Spielzug != "":
+    #        return self.__Spielzug
 
-        # Überprüfung ob man selber zwei Steine in einer Zeile hat
-        self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
-        if self.__Spielzug != "":
-            return self.__Spielzug
+    #    # Überprüfung ob man selber zwei Steine in einer Zeile hat
+    #    self.__ÜberprüfungobzweiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe, self.__fremdeSpielsteinfarbe,Zugüberprüfung)
+    #    if self.__Spielzug != "":
+    #        return self.__Spielzug
 
         
 
@@ -330,6 +330,8 @@ class KI:
         if self.__Spielfeld == Array:
             self.__Spielzug = 3
             return self.__Spielzug
+
+
         # Überprüfung ob man selber gewinnen kann
         self.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,Zugüberprüfung)
         if self.__Spielzug != "":

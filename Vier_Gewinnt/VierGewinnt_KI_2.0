@@ -1,0 +1,6 @@
+from random import *
+
+class VierGewinnt_KI_2:
+    """description of class"""
+
+
