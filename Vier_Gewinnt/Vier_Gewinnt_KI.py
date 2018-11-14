@@ -1,8 +1,7 @@
 from random import *
 import copy
-import threading
-
 from Vier_Gewinnt_Klasse import viergewinntklasse
+
 class KI:
     def __init__(self,eigendeSpielsteinfarbe,fremdeSpielsteinfarbe):
         self.__Spielfeld = [["w" for x in range(7)] for y in range(6)]
@@ -390,14 +389,6 @@ class KI:
 
         else:
             self.__Spielzug = ""
-
-
-
-
-
-
-
-                
 
 
 

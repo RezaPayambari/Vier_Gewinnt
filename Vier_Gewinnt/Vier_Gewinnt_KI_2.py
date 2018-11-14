@@ -4,7 +4,7 @@ from Vier_Gewinnt_Klasse import viergewinntklasse
 import copy
 
 class VierGewinnt_KI_2:
-	def __init(self,eigeneSpielsteinfarbe,fremdesteinfarbe):
+	def __init__(self,eigeneSpielsteinfarbe,fremdesteinfarbe):
 		self.__Spielfeld = [["w" for x in range(7)] for y in range(6)]
 		self.__eigeneSpielsteinfarbe = eigeneSpielsteinfarbe
 		self.__fremdeSpielsteinfarbe = fremdesteinfarbe
@@ -28,7 +28,7 @@ class VierGewinnt_KI_2:
 		while xy < 8:
 			self.__VierGewinntKlasse = viergewinntklasse(self.__Spielfeld,steine)
 			self.__VierGewinntKlasse.setSpielzug(0)
-			self.__VierGewinntKlasse.ausführen
+			self.__VierGewinntKlasse.ausfÃ¼hren()
 			Game0 = Game(eigeneSpielsteinfarbe,fremdesteinfarbe,steine-1,self.__vierGewinntKlasse.getArray())
 			if Game0.start == True:
 				spalte[0] = game0.getAusgang()
@@ -69,15 +69,15 @@ class Game:
 		x = 0
 		while x < 100:
 			while self.__VierGewinntKlasse.getSpielbeendet() == False:
-				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 0 and self.__VierGewinntKlasse.getSpielbeendet() == False:
+				if self.__VierGewinntKlasse.getRestSpielzÃ¼ge() %2 == 0 and self.__VierGewinntKlasse.getSpielbeendet() == False:
 					KI_1.setSpielfeld(self.__VierGewinnt.getArray())
 					self.__VierGewinntKlasse.setSpielzug(KI_1.Spielzuggenerieren())
-					self.__VierGewinntKlasse.ausführen()
+					self.__VierGewinntKlasse.ausfÃ¼hren()
 
-				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 1 and self.__VierGewinntKlasse.getSpielbeendet() == False:
+				if self.__VierGewinntKlasse.getRestSpielzÃ¼ge() %2 == 1 and self.__VierGewinntKlasse.getSpielbeendet() == False:
 					KI_Gelb.setSpielfeld(Array)
 					self.__VierGewinntKlasse.setSpielzug(KI_Gelb.Spielzuggenerieren())
-					self.__VierGewinntKlasse.ausführen()
+					self.__VierGewinntKlasse.ausfÃ¼hren()
 				self.__VierGewinntKlasse.neuesMatch()
 			x+=1
 

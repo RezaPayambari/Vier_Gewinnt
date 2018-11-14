@@ -3,7 +3,7 @@ from Vier_Gewinnt_Klasse import viergewinntklasse
 import time
 from Vier_Gewinnt_KI import KI
 import sys
-from VierGewinnt_KI_2 import VierGewinnt_KI_2
+from Vier_Gewinnt_KI_2 import VierGewinnt_KI_2
 
 
 
@@ -110,6 +110,8 @@ def on_mouse_down(pos):
     global Spielbeginnt
     global Spieler_Gelb_1_0
     global Spieler_Gruen_1_0
+    global Spieler_Gelb_2_0
+    global Spieler_Gruen_2_0
     # Spalte des Zuges ermitteln
     xmouse = pos[0]
     ymouse = pos[1]
@@ -212,7 +214,7 @@ def on_mouse_down(pos):
             labelloeschen("KI 2")
         elif Spieler_Gruen_1_0 == False:
             labelloeschen("KI")
-            laebelloeschen("KI 2")
+            labelloeschen("KI 2")
         if Spieler_Gelb_1_0 != None and Spieler_Gruen_1_0 != None :
             Spielbeginnt = True
             #================================

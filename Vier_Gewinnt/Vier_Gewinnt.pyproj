@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b6f0829f-5f3e-4745-80dd-9d61096a8dc8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Vier_Gewinnt_GUI_pgzero.py</StartupFile>
+    <StartupFile>test_KI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Vier_Gewinnt</Name>
     <RootNamespace>Vier_Gewinnt</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,14 +38,12 @@
     <Compile Include="Vier_Gewinnt_KI.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Vier_Gewinnt_KI_2.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Vier_Gewinnt_Klasse.py">
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="VierGewinnt_KI_2.py">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
