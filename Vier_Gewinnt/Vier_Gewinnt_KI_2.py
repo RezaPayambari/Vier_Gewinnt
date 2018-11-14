@@ -29,9 +29,9 @@ class VierGewinnt_KI_2:
 			self.__VierGewinntKlasse = viergewinntklasse(self.__Spielfeld,steine)
 			self.__VierGewinntKlasse.setSpielzug(0)
 			self.__VierGewinntKlasse.ausführen()
-			Game0 = Game(eigeneSpielsteinfarbe,fremdesteinfarbe,steine-1,self.__vierGewinntKlasse.getArray())
-			if Game0.start == True:
-				spalte[0] = game0.getAusgang()
+			Game0 = Game(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,steine-1,self.__VierGewinntKlasse.getArray())
+			if Game0.start() == True:
+				spalte[0] = Game0.getAusgang()
 			xy+=1
 
 		b = max(spalte)
@@ -51,18 +51,18 @@ class Game:
 
 	def start(self):
 		self.spielen()
-		if eigenefarbe == "gr":
-			if self.__VierGewinntKlasse.getSpielstandGelb < self.__VierGewinntKlasse.getSpielstandGruen:
-				self.__Ausgang = self.__VierGewinntKlasse.getSpielstandGruen
-				return true
-			elif self.__VierGewinntKlasse.getSpielstandGelb > self.__VierGewinntKlasse.getSpielstandGruen:
-				return false
-		elif eigenefarbe == "ge":
-			if self.__VierGewinntKlasse.getSpielstandGelb > self.__VierGewinntKlasse.getSpielstandGruen:
-				self.__Ausgang = self.__VierGewinntKlasse.getSpielstandGruen
-				return true
-			elif self.__VierGewinntKlasse.getSpielstandGelb < self.__VierGewinntKlasse.getSpielstandGruen:
-				return false
+		if self.__eigeneSpielsteinfarbe == "gr":
+			if self.__VierGewinntKlasse.getSpielstandGelb() < self.__VierGewinntKlasse.getSpielstandGruen():
+				self.__Ausgang = self.__VierGewinntKlasse.getSpielstandGruen()
+				return True
+			elif self.__VierGewinntKlasse.getSpielstandGelb() > self.__VierGewinntKlasse.getSpielstandGruen():
+				return False
+		elif self.__eigeneSpielsteinfarbe == "ge":
+			if self.__VierGewinntKlasse.getSpielstandGelb() > self.__VierGewinntKlasse.getSpielstandGruen():
+				self.__Ausgang = self.__VierGewinntKlasse.getSpielstandGruen()
+				return True
+			elif self.__VierGewinntKlasse.getSpielstandGelb() < self.__VierGewinntKlasse.getSpielstandGruen():
+				return Falsealse
 
 
 	def spielen(self):
@@ -70,14 +70,14 @@ class Game:
 		while x < 100:
 			while self.__VierGewinntKlasse.getSpielbeendet() == False:
 				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 0 and self.__VierGewinntKlasse.getSpielbeendet() == False:
-					KI_1.setSpielfeld(self.__VierGewinnt.getArray())
-					self.__VierGewinntKlasse.setSpielzug(KI_1.Spielzuggenerieren())
+					self.KI_1.setSpielfeld(self.__VierGewinntKlasse.getArray())
+					self.__VierGewinntKlasse.setSpielzug(self.KI_1.Spielzuggenerieren())
 					self.__VierGewinntKlasse.ausführen()
 
 				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 1 and self.__VierGewinntKlasse.getSpielbeendet() == False:
-					KI_Gelb.setSpielfeld(Array)
-					self.__VierGewinntKlasse.setSpielzug(KI_Gelb.Spielzuggenerieren())
+					self.KI_2.setSpielfeld(self.__VierGewinntKlasse.getArray())
+					self.__VierGewinntKlasse.setSpielzug(self.KI_2.Spielzuggenerieren())
 					self.__VierGewinntKlasse.ausführen()
-				self.__VierGewinntKlasse.neuesMatch()
+			self.__VierGewinntKlasse.neuesMatch()
 			x+=1
 

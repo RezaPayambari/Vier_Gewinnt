@@ -9,7 +9,7 @@ from Vier_Gewinnt_KI_2 import VierGewinnt_KI_2
 
 
 def update():
-    if Spieler_Gelb_1_0 == True and Spieler_Gruen_1_0 == True:
+    if (Spieler_Gelb_1_0 == True and Spieler_Gruen_1_0 == True)or (Spieler_Gelb_2_0 == True and Spieler_Gruen_1_0 == True)or(Spieler_Gelb_1_0 == True and Spieler_Gruen_2_0 == True)or(Spieler_Gelb_2_0 == True and Spieler_Gruen_2_0 == True):
         zweiKIsSpielen()
         __Spielfeldgenerieren()
 
@@ -206,13 +206,19 @@ def on_mouse_down(pos):
         if Spieler_Gelb_1_0 == True:
             labelloeschen("Mensch  ")
             labelloeschen("KI 2 ")
-        elif Spieler_Gelb_1_0 == False: 
+        elif Spieler_Gelb_2_0 == True:
+            labelloeschen("Mensch  ")
+            labelloeschen("KI  ")
+        elif Spieler_Gelb_1_0 == False and Spieler_Gelb_2_0 == False: 
             labelloeschen("KI  ")
             labelloeschen("KI 2 ")
         if Spieler_Gruen_1_0 == True:
             labelloeschen("Mensch")
             labelloeschen("KI 2")
-        elif Spieler_Gruen_1_0 == False:
+        elif Spieler_Gruen_2_0 == True:
+            labelloeschen("Mensch")
+            labelloeschen("KI")
+        elif Spieler_Gruen_1_0 == False and Spieler_Gruen_2_0 == False:
             labelloeschen("KI")
             labelloeschen("KI 2")
         if Spieler_Gelb_1_0 != None and Spieler_Gruen_1_0 != None :
