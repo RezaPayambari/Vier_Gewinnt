@@ -4,19 +4,14 @@ import threading
 
 from Vier_Gewinnt_Klasse import viergewinntklasse
 class KI:
-    def __init__(self,eigendeSpielsteinfarbe,fremdeSpielsteinfarbe,tiefe):
+    def __init__(self,eigendeSpielsteinfarbe,fremdeSpielsteinfarbe):
         self.__Spielfeld = [["w" for x in range(7)] for y in range(6)]
         self.__eigeneSpielsteinfarbe = eigendeSpielsteinfarbe
         self.__fremdeSpielsteinfarbe = fremdeSpielsteinfarbe
         self.__Spielzug = ""
         self.__Spielzuege = []
         self.__VierGewinntKlasse = None
-        self.__tiefe = tiefe
         testgegnerZug = None
-        
-        
-    def getTiefe(self):
-        return self.__tiefe
 
     def setSpielfeld(self,Spielfeld):
         self.__Spielfeld = copy.deepcopy(Spielfeld)
@@ -242,11 +237,10 @@ class KI:
             self.__VierGewinntKlasse.setSpielzug(Zug)
             self.__VierGewinntKlasse.ausführen()
             # Überprüfung ob man mit dem übernächsten zug gewinnen kann
-            testKI = KI(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,self.__tiefe)
+            testKI = KI(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe)
             testKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
             testKI.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,False)
             testKIZug = testKI.__Spielzug
-            self.__tiefe = testKI.getTiefe()
             # Erste Idee eines rekursiven Aufrufs
           #  """ Idee"""
            #if self.__VierGewinntKlasse.getErgebnis != "":
