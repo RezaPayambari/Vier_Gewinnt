@@ -42,7 +42,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VierGewinnt_KI_2.0">
+    <Content Include="VierGewinnt_KI_2.py">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

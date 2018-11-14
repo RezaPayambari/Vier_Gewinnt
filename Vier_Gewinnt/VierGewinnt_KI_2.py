@@ -1,8 +1,9 @@
 from random import *
 from Vier_Gewinnt_KI import KI
+
 class VierGewinnt_KI_2:
 	def __init(self,eigeneSpielsteinfarbe,fremdesteinfarbe):
 		self.__Spielfeld = None
-    """description of class"""
+
 
 
