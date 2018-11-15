@@ -50,8 +50,10 @@ def draw():
 
 
 def zweiKIsSpielen():
-   # while Vier_Gewinnt.getSpielbeendet() == False:
-        
+    global Spieler_Gelb_1_0
+    global Spieler_Gruen_1_0
+    global Spieler_Gelb_2_0
+    global Spieler_Gruen_2_0
     # ===============================================================================================================================================================================================================================
     if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_1_0 == True:
         KI_Gruen_1_0.setSpielfeld(Array)
@@ -239,9 +241,6 @@ def on_mouse_down(pos):
             __Spielfeldgenerieren()
 
 
-            __Spielfeldgenerieren()
-
-
 
     # wenn Spielbeendet ist und ein neues Match starten soll
     if Vier_Gewinnt.getSpielbeendet() == True:
@@ -253,7 +252,30 @@ def on_mouse_down(pos):
             g = True
         # Neues Spiel
         if xmouse >= 148 and xmouse <= 248 and ymouse >=538 and ymouse <=555:
-            Vier_Gewinnt = viergewinntklasse()
+            Vier_Gewinnt = viergewinntklasse([["w" for x in range(7)] for y in range(6)])
+            Spieler_Gelb_1_0 = None
+            Spieler_Gelb_2_0 = None
+            Spieler_Gruen_1_0 = None
+            Spieler_Gruen_2_0 = None
+            Spielbeginnt = False
+            LabelListe.clear()
+            labelsetzen("Spielstand",400,450)
+            labelsetzen("Spieler Gelb :",400,500)
+            labelsetzen("Spieler Grün :",400,550)
+            Spielbeginnt = False
+            # Labels zur Auswahl der Spieler
+            labelsetzen("Spieler 1",550 ,50)
+            labelsetzen("Spieler 2",550, 200)
+            # Spieler 1
+            labelsetzen("Mensch  ",500,100)
+            labelsetzen("KI  ",600,100)
+            labelsetzen("KI 2 ",650,100)
+        
+            # Spieler 2
+            labelsetzen("Mensch",500,250)
+            labelsetzen("KI",600,250)
+            labelsetzen("KI 2",650,250)
+
             __Spielfeldgenerieren()
             g = True
 
@@ -265,10 +287,10 @@ def on_mouse_down(pos):
                     label2 = label
                 if str(label.gettext()) == "Neues Spiel":
                     label3 = label
-
-            LabelListe.remove(label1)
-            LabelListe.remove(label2)
-            LabelListe.remove(label3)
+            if len(LabelListe) > 11:
+                LabelListe.remove(label1)
+                LabelListe.remove(label2)
+                LabelListe.remove(label3)
 
     draw()
 

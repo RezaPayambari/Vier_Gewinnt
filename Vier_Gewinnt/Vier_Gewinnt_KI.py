@@ -372,6 +372,12 @@ class KI:
     def __Spielzuegeauswerten(self):
 
         if len(self.__Spielzuege) > 0:
+            if max(self.__Spielzuege) > 3:
+                self.__Spielzuege.sort()
+            elif max(self.__Spielzuege) < 4:
+                self.__Spielzuege.sort(reverse = True)
+
+        if len(self.__Spielzuege) > 0:
 
             liste = []
 
