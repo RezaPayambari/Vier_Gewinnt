@@ -86,7 +86,38 @@ def zweiKIsSpielen():
         time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
-  
+  ################===========
+  ################========== Spielerei
+  ################==========
+  ###############  g = False
+  ###############  if  Vier_Gewinnt.getSpielbeendet() == True:
+  ###############      Vier_Gewinnt.neuesMatch()
+  ###############      __Spielfeldgenerieren()
+  ###############      g = True
+
+  ###############  if g == True:
+  ###############      for label in LabelListe:
+  ###############          if str(label.gettext()) == "Spieler Gelb hat gewonnen." or str(label.gettext()) == "Spieler Grün hat gewonnen." or str(label.gettext()) == "Unentschieden":
+  ###############              label1 = label
+  ###############          if str(label.gettext()) == "Neues Match":
+  ###############              label2 = label
+  ###############          if str(label.gettext()) == "Neues Spiel":
+  ###############              label3 = label
+  ###############      if len(LabelListe) > 11 or len(LabelListe) == 10:
+  ###############          LabelListe.remove(label1)
+  ###############          LabelListe.remove(label2)
+  ###############          LabelListe.remove(label3)
+
+  ###############  draw()
+
+  ###############    #===========
+  ################========== Spielerei
+  ################==========
+
+
+
+
+
 
 
 # Methode fügt Daten (Text,xPosition,yPosition) für ein Label als Array in ein Array
@@ -246,7 +277,7 @@ def on_mouse_down(pos):
     if Vier_Gewinnt.getSpielbeendet() == True:
         g = False
         # Neues Match
-        if xmouse >= 18 and xmouse <= 135 and ymouse >=540 and ymouse <=555:
+        if (xmouse >= 18 and xmouse <= 135 and ymouse >=540 and ymouse <=555):
             Vier_Gewinnt.neuesMatch()
             __Spielfeldgenerieren()
             g = True
@@ -287,7 +318,7 @@ def on_mouse_down(pos):
                     label2 = label
                 if str(label.gettext()) == "Neues Spiel":
                     label3 = label
-            if len(LabelListe) > 11:
+            if len(LabelListe) > 11 or len(LabelListe) == 10:
                 LabelListe.remove(label1)
                 LabelListe.remove(label2)
                 LabelListe.remove(label3)
