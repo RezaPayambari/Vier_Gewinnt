@@ -75,7 +75,7 @@ def zweiKIsSpielen():
     if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_2_0 == True:
         KI_Gruen_2_0.setSpielfeld(Array)
         Vier_Gewinnt.setSpielzug(KI_Gruen_2_0.Spielzuggenerieren())
-        time.sleep(1)
+        #time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
         
@@ -83,7 +83,7 @@ def zweiKIsSpielen():
     elif Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_2_0 == True:
         KI_Gelb_2_0.setSpielfeld(Array)
         Vier_Gewinnt.setSpielzug(KI_Gelb_2_0.Spielzuggenerieren())
-        time.sleep(1)
+        #time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
   ################===========
@@ -197,7 +197,7 @@ def on_mouse_down(pos):
         if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_2_0 == True and Spieler_Gelb_1_0 == False and Spieler_Gelb_2_0 == False :
             KI_Gruen_2_0.setSpielfeld(Array)
             Vier_Gewinnt.setSpielzug(KI_Gruen_2_0.Spielzuggenerieren())
-            time.sleep(1)
+            #time.sleep(1)
             Vier_Gewinnt.ausführen()
         # ================================================================================================================================================================================================================================
 
@@ -205,14 +205,12 @@ def on_mouse_down(pos):
         if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_2_0 == True and Spieler_Gruen_1_0 == False and Spieler_Gruen_2_0 == False:
             KI_Gelb_2_0.setSpielfeld(Array)
             Vier_Gewinnt.setSpielzug(KI_Gelb_2_0.Spielzuggenerieren())
-            time.sleep(1)
+           #time.sleep(1)
             Vier_Gewinnt.ausführen()
         # ================================================================================================================================================================================================================================
+        __Spielfeldgenerieren()
      
 
-
-
-        __Spielfeldgenerieren()
 
     elif Spielbeginnt == False:
         # Spieler 1
@@ -270,7 +268,7 @@ def on_mouse_down(pos):
             #=================================
 
             __Spielfeldgenerieren()
-
+            draw()
 
 
     # wenn Spielbeendet ist und ein neues Match starten soll
