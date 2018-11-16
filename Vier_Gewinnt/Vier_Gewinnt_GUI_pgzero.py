@@ -3,12 +3,13 @@ from Vier_Gewinnt_Klasse import viergewinntklasse
 import time
 from Vier_Gewinnt_KI import KI
 import sys
+from Vier_Gewinnt_KI_2 import VierGewinnt_KI_2
 
 
 
 
 def update():
-    if Spieler1KI == True and Spieler2KI == True:
+    if (Spieler_Gelb_1_0 == True and Spieler_Gruen_1_0 == True)or (Spieler_Gelb_2_0 == True and Spieler_Gruen_1_0 == True)or(Spieler_Gelb_1_0 == True and Spieler_Gruen_2_0 == True)or(Spieler_Gelb_2_0 == True and Spieler_Gruen_2_0 == True):
         zweiKIsSpielen()
         __Spielfeldgenerieren()
 
@@ -49,24 +50,74 @@ def draw():
 
 
 def zweiKIsSpielen():
-   # while Vier_Gewinnt.getSpielbeendet() == False:
-        
+    global Spieler_Gelb_1_0
+    global Spieler_Gruen_1_0
+    global Spieler_Gelb_2_0
+    global Spieler_Gruen_2_0
     # ===============================================================================================================================================================================================================================
-    if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler2KI == True:
-        vier_Gewinnt_KI_1.setSpielfeld(Array)
-        Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
+    if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_1_0 == True:
+        KI_Gruen_1_0.setSpielfeld(Array)
+        Vier_Gewinnt.setSpielzug(KI_Gruen_1_0.Spielzuggenerieren())
         time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
         
     # ===============================================================================================================================================================================================================================
-    elif Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True:
-        vier_Gewinnt_KI_2.setSpielfeld(Array)
-        Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_2.Spielzuggenerieren())
+    elif Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_1_0 == True:
+        KI_Gelb_1_0.setSpielfeld(Array)
+        Vier_Gewinnt.setSpielzug(KI_Gelb_1_0.Spielzuggenerieren())
+        time.sleep(1)
+        Vier_Gewinnt.ausführen()
+    # ================================================================================================================================================================================================================================
+    
+    
+    # ===============================================================================================================================================================================================================================
+    if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_2_0 == True:
+        KI_Gruen_2_0.setSpielfeld(Array)
+        Vier_Gewinnt.setSpielzug(KI_Gruen_2_0.Spielzuggenerieren())
         time.sleep(1)
         Vier_Gewinnt.ausführen()
     # ================================================================================================================================================================================================================================
         
+    # ===============================================================================================================================================================================================================================
+    elif Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_2_0 == True:
+        KI_Gelb_2_0.setSpielfeld(Array)
+        Vier_Gewinnt.setSpielzug(KI_Gelb_2_0.Spielzuggenerieren())
+        time.sleep(1)
+        Vier_Gewinnt.ausführen()
+    # ================================================================================================================================================================================================================================
+  ################===========
+  ################========== Spielerei
+  ################==========
+  ###############  g = False
+  ###############  if  Vier_Gewinnt.getSpielbeendet() == True:
+  ###############      Vier_Gewinnt.neuesMatch()
+  ###############      __Spielfeldgenerieren()
+  ###############      g = True
+
+  ###############  if g == True:
+  ###############      for label in LabelListe:
+  ###############          if str(label.gettext()) == "Spieler Gelb hat gewonnen." or str(label.gettext()) == "Spieler Grün hat gewonnen." or str(label.gettext()) == "Unentschieden":
+  ###############              label1 = label
+  ###############          if str(label.gettext()) == "Neues Match":
+  ###############              label2 = label
+  ###############          if str(label.gettext()) == "Neues Spiel":
+  ###############              label3 = label
+  ###############      if len(LabelListe) > 11 or len(LabelListe) == 10:
+  ###############          LabelListe.remove(label1)
+  ###############          LabelListe.remove(label2)
+  ###############          LabelListe.remove(label3)
+
+  ###############  draw()
+
+  ###############    #===========
+  ################========== Spielerei
+  ################==========
+
+
+
+
+
 
 
 # Methode fügt Daten (Text,xPosition,yPosition) für ein Label als Array in ein Array
@@ -90,8 +141,10 @@ def labelloeschen(text):
 def on_mouse_down(pos):
     global Vier_Gewinnt
     global Spielbeginnt
-    global Spieler1KI
-    global Spieler2KI
+    global Spieler_Gelb_1_0
+    global Spieler_Gruen_1_0
+    global Spieler_Gelb_2_0
+    global Spieler_Gruen_2_0
     # Spalte des Zuges ermitteln
     xmouse = pos[0]
     ymouse = pos[1]
@@ -114,59 +167,108 @@ def on_mouse_down(pos):
         spalte = 100
     if spalte != 100 and Vier_Gewinnt.getSpielbeendet() == False and Spielbeginnt == True:
 
-        if Spieler1KI == True and Vier_Gewinnt.getRestSpielzüge() %2 == 0:
+        if Spieler_Gelb_1_0 == True and Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Spieler_Gruen_1_0 == False:
             Vier_Gewinnt.setSpielzug(spalte)
             Vier_Gewinnt.ausführen()
-        elif Spieler2KI == True and Vier_Gewinnt.getRestSpielzüge() %2 == 1:
+        elif Spieler_Gruen_1_0 == True and Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Spieler_Gelb_1_0 == False:
             Vier_Gewinnt.setSpielzug(spalte)
             Vier_Gewinnt.ausführen()
 
 
         # ===============================================================================================================================================================================================================================
-        if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler2KI == True and Spieler1KI == False :
-            vier_Gewinnt_KI_1.setSpielfeld(Array)
-            Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_1.Spielzuggenerieren())
+        if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_1_0 == True and Spieler_Gelb_1_0 == False :
+            KI_Gruen_1_0.setSpielfeld(Array)
+            Vier_Gewinnt.setSpielzug(KI_Gruen_1_0.Spielzuggenerieren())
             time.sleep(1)
             Vier_Gewinnt.ausführen()
         # ================================================================================================================================================================================================================================
 
         # ===============================================================================================================================================================================================================================
-        if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True and Spieler2KI == False:
-            vier_Gewinnt_KI_2.setSpielfeld(Array)
-            Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_2.Spielzuggenerieren())
+        if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_1_0 == True and Spieler_Gruen_1_0 == False:
+            KI_Gelb_1_0.setSpielfeld(Array)
+            Vier_Gewinnt.setSpielzug(KI_Gelb_1_0.Spielzuggenerieren())
             time.sleep(1)
             Vier_Gewinnt.ausführen()
         # ================================================================================================================================================================================================================================
         # Spielfeld erstellen
+
+
+        # ===============================================================================================================================================================================================================================
+        if Vier_Gewinnt.getRestSpielzüge() %2 == 0 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gruen_2_0 == True and Spieler_Gelb_1_0 == False and Spieler_Gelb_2_0 == False :
+            KI_Gruen_2_0.setSpielfeld(Array)
+            Vier_Gewinnt.setSpielzug(KI_Gruen_2_0.Spielzuggenerieren())
+            time.sleep(1)
+            Vier_Gewinnt.ausführen()
+        # ================================================================================================================================================================================================================================
+
+        # ===============================================================================================================================================================================================================================
+        if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_2_0 == True and Spieler_Gruen_1_0 == False and Spieler_Gruen_2_0 == False:
+            KI_Gelb_2_0.setSpielfeld(Array)
+            Vier_Gewinnt.setSpielzug(KI_Gelb_2_0.Spielzuggenerieren())
+            time.sleep(1)
+            Vier_Gewinnt.ausführen()
+        # ================================================================================================================================================================================================================================
+     
+
+
+
         __Spielfeldgenerieren()
 
     elif Spielbeginnt == False:
         # Spieler 1
         if xmouse >= 500 and xmouse <= 565 and ymouse >=100 and ymouse <=115:
-            Spieler1KI = False
+            Spieler_Gelb_1_0 = False
+            Spieler_Gelb_2_0 = False
         elif xmouse >= 600 and xmouse <= 615 and ymouse >=100 and ymouse <=115:
-            Spieler1KI = True
+            Spieler_Gelb_1_0 = True
+            Spieler_Gelb_2_0 = False
+        elif xmouse >= 650 and xmouse <= 680 and ymouse >= 100 and ymouse <= 115:
+            Spieler_Gelb_2_0 = True
+            Spieler_Gelb_1_0 = False
         # Spieler 2
         if xmouse >= 500 and xmouse <= 565 and ymouse >=250 and ymouse <=265:
-            Spieler2KI = False
+            Spieler_Gruen_1_0 = False
+            Spieler_Gruen_2_0 = False
         elif xmouse >= 600 and xmouse <= 615 and ymouse >=250 and ymouse <=265:
-            Spieler2KI = True
+            Spieler_Gruen_1_0 = True
+            Spieler_Gruen_2_0 = False
+        elif xmouse >= 650 and xmouse <= 680 and ymouse >=250 and ymouse <=265:
+            Spieler_Gruen_2_0 = True
+            Spieler_Gruen_1_0 = False
 
-        if Spieler1KI == True:
+        if Spieler_Gelb_1_0 == True:
             labelloeschen("Mensch  ")
-        elif Spieler1KI == False: 
+            labelloeschen("KI 2 ")
+        elif Spieler_Gelb_2_0 == True:
+            labelloeschen("Mensch  ")
             labelloeschen("KI  ")
-        if Spieler2KI == True:
+        elif Spieler_Gelb_1_0 == False and Spieler_Gelb_2_0 == False: 
+            labelloeschen("KI  ")
+            labelloeschen("KI 2 ")
+        if Spieler_Gruen_1_0 == True:
             labelloeschen("Mensch")
-        elif Spieler2KI == False:
+            labelloeschen("KI 2")
+        elif Spieler_Gruen_2_0 == True:
+            labelloeschen("Mensch")
             labelloeschen("KI")
-        if Spieler1KI != None and Spieler2KI != None :
+        elif Spieler_Gruen_1_0 == False and Spieler_Gruen_2_0 == False:
+            labelloeschen("KI")
+            labelloeschen("KI 2")
+        if Spieler_Gelb_1_0 != None and Spieler_Gruen_1_0 != None :
             Spielbeginnt = True
-
-            if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler1KI == True and Spieler2KI == False:
-                vier_Gewinnt_KI_2.setSpielfeld(Array)
-                Vier_Gewinnt.setSpielzug(vier_Gewinnt_KI_2.Spielzuggenerieren())
+            #================================
+            if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_1_0 == True and Spieler_Gruen_1_0 == False and Spieler_Gruen_2_0 == False:
+                KI_Gelb_1_0.setSpielfeld(Array)
+                Vier_Gewinnt.setSpielzug(KI_Gelb_1_0.Spielzuggenerieren())
                 Vier_Gewinnt.ausführen()
+            #=====================
+            #==========================
+            if Vier_Gewinnt.getRestSpielzüge() %2 == 1 and Vier_Gewinnt.getSpielbeendet() ==False and Spieler_Gelb_2_0 == True and Spieler_Gruen_1_0 == False and Spieler_Gruen_2_0 == False:
+                KI_Gelb_2_0.setSpielfeld(Array)
+                Vier_Gewinnt.setSpielzug(KI_Gelb_2_0.Spielzuggenerieren())
+                Vier_Gewinnt.ausführen()
+            #=================================
+
             __Spielfeldgenerieren()
 
 
@@ -175,13 +277,36 @@ def on_mouse_down(pos):
     if Vier_Gewinnt.getSpielbeendet() == True:
         g = False
         # Neues Match
-        if xmouse >= 18 and xmouse <= 135 and ymouse >=540 and ymouse <=555:
+        if (xmouse >= 18 and xmouse <= 135 and ymouse >=540 and ymouse <=555):
             Vier_Gewinnt.neuesMatch()
             __Spielfeldgenerieren()
             g = True
         # Neues Spiel
         if xmouse >= 148 and xmouse <= 248 and ymouse >=538 and ymouse <=555:
-            Vier_Gewinnt = viergewinntklasse()
+            Vier_Gewinnt = viergewinntklasse([["w" for x in range(7)] for y in range(6)])
+            Spieler_Gelb_1_0 = None
+            Spieler_Gelb_2_0 = None
+            Spieler_Gruen_1_0 = None
+            Spieler_Gruen_2_0 = None
+            Spielbeginnt = False
+            LabelListe.clear()
+            labelsetzen("Spielstand",400,450)
+            labelsetzen("Spieler Gelb :",400,500)
+            labelsetzen("Spieler Grün :",400,550)
+            Spielbeginnt = False
+            # Labels zur Auswahl der Spieler
+            labelsetzen("Spieler 1",550 ,50)
+            labelsetzen("Spieler 2",550, 200)
+            # Spieler 1
+            labelsetzen("Mensch  ",500,100)
+            labelsetzen("KI  ",600,100)
+            labelsetzen("KI 2 ",650,100)
+        
+            # Spieler 2
+            labelsetzen("Mensch",500,250)
+            labelsetzen("KI",600,250)
+            labelsetzen("KI 2",650,250)
+
             __Spielfeldgenerieren()
             g = True
 
@@ -193,10 +318,10 @@ def on_mouse_down(pos):
                     label2 = label
                 if str(label.gettext()) == "Neues Spiel":
                     label3 = label
-
-            LabelListe.remove(label1)
-            LabelListe.remove(label2)
-            LabelListe.remove(label3)
+            if len(LabelListe) > 11 or len(LabelListe) == 10:
+                LabelListe.remove(label1)
+                LabelListe.remove(label2)
+                LabelListe.remove(label3)
 
     draw()
 
@@ -239,13 +364,19 @@ class labelklasse:
 
 
 Vier_Gewinnt = viergewinntklasse()
-vier_Gewinnt_KI_1 = KI("gr","ge")
-vier_Gewinnt_KI_2 = KI("ge","gr")
+KI_Gruen_1_0 = KI("gr","ge")
+KI_Gelb_1_0 = KI("ge","gr")
+
+KI_Gruen_2_0 = VierGewinnt_KI_2("gr","ge")
+KI_Gelb_2_0 = VierGewinnt_KI_2("ge","gr")
 HEIGHT = 600
 WIDTH = 700
-sys.setrecursionlimit(2000)
-Spieler1KI = None
-Spieler2KI = None
+sys.setrecursionlimit(10000)
+Spieler_Gelb_1_0 = None
+Spieler_Gruen_1_0 = None
+
+Spieler_Gelb_2_0 = None
+Spieler_Gruen_2_0 = None
 
 xposition = 30
 yposition = 30
@@ -264,10 +395,12 @@ labelsetzen("Spieler 2",550, 200)
 # Spieler 1
 labelsetzen("Mensch  ",500,100)
 labelsetzen("KI  ",600,100)
+labelsetzen("KI 2 ",650,100)
         
 # Spieler 2
 labelsetzen("Mensch",500,250)
 labelsetzen("KI",600,250)
+labelsetzen("KI 2",650,250)
 
 
 pgzrun.go()
