@@ -23,7 +23,7 @@ class VierGewinnt_KI_2:
 		for element in self.__Spielfeld:
 			if element == "w":
 				steine +=1
-		spalte=[0,0,0,0,0,0,0]
+		spalte=[0,0,0,0,0,0,0,0]
 		xy =0
 		while xy < 8:
 			self.__VierGewinntKlasse = viergewinntklasse(self.__Spielfeld,steine)
@@ -31,7 +31,7 @@ class VierGewinnt_KI_2:
 			self.__VierGewinntKlasse.ausführen()
 			Game0 = Game(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,steine-1,self.__VierGewinntKlasse.getArray())
 			if Game0.start() == True:
-				spalte[0] = Game0.getAusgang()
+				spalte[xy] = Game0.getAusgang()
 			xy+=1
 
 		b = max(spalte)
@@ -43,7 +43,7 @@ class Game:
 		self.__fremdeSpielsteinfarbe = fremdefarbe
 		self.__Ausgang = ""
 		self.__VierGewinntKlasse = viergewinntklasse(spielfeld,restzuege)
-		self.KI_1 = KI(eigenefarbe,fremdefarbe)
+	#	self.KI_1 = KI(eigenefarbe,fremdefarbe)
 		self.KI_2 = KI(fremdefarbe,eigenefarbe)
 
 	def getAusgang(self):
@@ -62,20 +62,22 @@ class Game:
 				self.__Ausgang = self.__VierGewinntKlasse.getSpielstandGruen()
 				return True
 			elif self.__VierGewinntKlasse.getSpielstandGelb() < self.__VierGewinntKlasse.getSpielstandGruen():
-				return Falsealse
+				return False
 
 
 	def spielen(self):
 		x = 0
-		while x < 100:
+		while x < 3:
 			while self.__VierGewinntKlasse.getSpielbeendet() == False:
 				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 0 and self.__VierGewinntKlasse.getSpielbeendet() == False:
-					self.KI_1.setSpielfeld(self.__VierGewinntKlasse.getArray())
-					self.__VierGewinntKlasse.setSpielzug(self.KI_1.Spielzuggenerieren())
+					#self.KI_1.setSpielfeld(self.__VierGewinntKlasse.getArray())
+					self.__VierGewinntKlasse.setSpielzug(randint(0,6))
+					#self.__VierGewinntKlasse.setSpielzug(self.KI_1.Spielzuggenerieren())
 					self.__VierGewinntKlasse.ausführen()
 
 				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 1 and self.__VierGewinntKlasse.getSpielbeendet() == False:
 					self.KI_2.setSpielfeld(self.__VierGewinntKlasse.getArray())
+					#self.__VierGewinntKlasse.setSpielzug(randint(0,6))
 					self.__VierGewinntKlasse.setSpielzug(self.KI_2.Spielzuggenerieren())
 					self.__VierGewinntKlasse.ausführen()
 			self.__VierGewinntKlasse.neuesMatch()
