@@ -43,7 +43,7 @@ class Game:
 		self.__fremdeSpielsteinfarbe = fremdefarbe
 		self.__Ausgang = ""
 		self.__VierGewinntKlasse = viergewinntklasse(spielfeld,restzuege)
-	#	self.KI_1 = KI(eigenefarbe,fremdefarbe)
+		self.KI_1 = KI(eigenefarbe,fremdefarbe)
 		self.KI_2 = KI(fremdefarbe,eigenefarbe)
 
 	def getAusgang(self):
@@ -64,22 +64,32 @@ class Game:
 			elif self.__VierGewinntKlasse.getSpielstandGelb() < self.__VierGewinntKlasse.getSpielstandGruen():
 				return False
 
-
 	def spielen(self):
 		x = 0
-		while x < 3:
+		while x < 100:
+			y1=0
+			y2=0
 			while self.__VierGewinntKlasse.getSpielbeendet() == False:
 				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 0 and self.__VierGewinntKlasse.getSpielbeendet() == False:
-					#self.KI_1.setSpielfeld(self.__VierGewinntKlasse.getArray())
-					self.__VierGewinntKlasse.setSpielzug(randint(0,6))
-					#self.__VierGewinntKlasse.setSpielzug(self.KI_1.Spielzuggenerieren())
-					self.__VierGewinntKlasse.ausführen()
-
+				    Zug = randint(0,6)
+				    self.__VierGewinntKlasse.setSpielzug(Zug)
+				    self.__VierGewinntKlasse.ausführen()
+				    #self.KI_1.setSpielfeld(self.__VierGewinntKlasse.getArray())
+				    #if self.KI_1.SinnvollerZug(Zug,True,10000,False) == True or y1 == 10:
+					   # y1=0
+					   # self.__VierGewinntKlasse.setSpielzug(Zug)
+					   # self.__VierGewinntKlasse.ausführen()
+				    #y1+=1
 				if self.__VierGewinntKlasse.getRestSpielzüge() %2 == 1 and self.__VierGewinntKlasse.getSpielbeendet() == False:
-					self.KI_2.setSpielfeld(self.__VierGewinntKlasse.getArray())
-					#self.__VierGewinntKlasse.setSpielzug(randint(0,6))
-					self.__VierGewinntKlasse.setSpielzug(self.KI_2.Spielzuggenerieren())
-					self.__VierGewinntKlasse.ausführen()
+				    Zug = randint(0,6)
+				    self.__VierGewinntKlasse.setSpielzug(Zug)
+				    self.__VierGewinntKlasse.ausführen()
+				    #self.KI_2.setSpielfeld(self.__VierGewinntKlasse.getArray())
+				    #if self.KI_2.SinnvollerZug(Zug,True,10000,False) == True or y2 == 10:
+					   # y2=0
+					   # self.__VierGewinntKlasse.setSpielzug(Zug)
+					   # self.__VierGewinntKlasse.ausführen()
+				    #y2+=1
 			self.__VierGewinntKlasse.neuesMatch()
 			x+=1
 

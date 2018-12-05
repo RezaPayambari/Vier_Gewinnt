@@ -240,13 +240,6 @@ class KI:
             testKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
             testKI.ÜberprüfungobdreiSteineineinerReiheliegen(self.__eigeneSpielsteinfarbe,self.__fremdeSpielsteinfarbe,False)
             testKIZug = testKI.__Spielzug
-            # Erste Idee eines rekursiven Aufrufs
-          #  """ Idee"""
-           #if self.__VierGewinntKlasse.getErgebnis != "":
-            #    testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe)
-             #   testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
-              #  testgegnerZug = testKI.Spielzuggenerieren(True)
-           # """ Test """
             testgegnerZug = Zug
             if testgegnerZug != None:
                 self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
@@ -260,26 +253,6 @@ class KI:
                 # Überprüfung ob man sich selber verbauen kann
                 if testKIZug == "" or egal == True:
                     return True
-                    #""" Idee"""
-                    # Geht aus Performancegründen nicht
-                    #if self.__VierGewinntKlasse.getErgebnis != "":
-                    #    testgegnerKI = KI(self.__fremdeSpielsteinfarbe,self.__eigeneSpielsteinfarbe,self.__tiefe)
-                    #    testgegnerKI.setSpielfeld(self.__VierGewinntKlasse.getArray())
-                    #    testgegnerZug = testKI.rekusiver_Aufruf()
-                    #    self.__tiefe = testgegnerKI.getTiefe()
-                    #    if testgegnerZug != None:
-                    #        self.__VierGewinntKlasse.setSpielzug(testgegnerZug)
-                    #        self.__VierGewinntKlasse.ausführen()
-                    #    else:
-                    #        return False
-                    ##  "    Kontrolle ob der Gegner mit dem nächsten Zug gewinnen kann       
-                    #    if self.__VierGewinntKlasse.getErgebnis() == self.__fremdeSpielsteinfarbe:
-                    #        return False
-                    #    else: 
-                    #        # Überprüfung ob man sich selber verbauen kann
-                    #        if testKIZug == "" or egal == True:
-                    #            return True
-                    #""" Test """
                 else:
                     return False
         else:
